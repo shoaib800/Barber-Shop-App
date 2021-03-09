@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "196412589188",
+    "project_id": "barber-booking-5a064",
+    "storage_bucket": "barber-booking-5a064.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196412589188:android:aa4e2994372bfbf08aaed1",
+        "android_client_info": {
+          "package_name": "shoaib.dev.barbershopapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "196412589188-m0stfj7946labfk0bob3v5oeeg76u0l5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shoaib.dev.barbershopapp",
+            "certificate_hash": "cb582ea8d6a1c58e144ab7c7647cbd9399c4fbbb"
+          }
+        },
+        {
+          "client_id": "196412589188-qnnuoa0c5rlvqpjanmmutsl4n8narla7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAHmhkT93bNZayOtOU_CDhDVM-MTMz76c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "196412589188-qnnuoa0c5rlvqpjanmmutsl4n8narla7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
