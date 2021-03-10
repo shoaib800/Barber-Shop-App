@@ -1,41 +1,42 @@
 {
   "project_info": {
-    "project_number": "196412589188",
-    "project_id": "barber-booking-5a064",
-    "storage_bucket": "barber-booking-5a064.appspot.com"
+    "project_number": "281545360796",
+    "firebase_url": "https://barbershopapp-a27a7-default-rtdb.firebaseio.com",
+    "project_id": "barbershopapp-a27a7",
+    "storage_bucket": "barbershopapp-a27a7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:196412589188:android:aa4e2994372bfbf08aaed1",
+        "mobilesdk_app_id": "1:281545360796:android:963482640ad96005367459",
         "android_client_info": {
-          "package_name": "shoaib.dev.barbershopapp"
+          "package_name": "com.example.barbershopapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "196412589188-m0stfj7946labfk0bob3v5oeeg76u0l5.apps.googleusercontent.com",
+          "client_id": "281545360796-psobolc0qfqrn4g0ev4lkobj8rr0sg2e.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "shoaib.dev.barbershopapp",
-            "certificate_hash": "cb582ea8d6a1c58e144ab7c7647cbd9399c4fbbb"
+            "package_name": "com.example.barbershopapp",
+            "certificate_hash": "4bfc08d43b3437ce776e2f295d37678256ca5eb6"
           }
         },
         {
-          "client_id": "196412589188-qnnuoa0c5rlvqpjanmmutsl4n8narla7.apps.googleusercontent.com",
+          "client_id": "281545360796-suo03ngrrs867la51k1g1vra74o97pot.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCAHmhkT93bNZayOtOU_CDhDVM-MTMz76c"
+          "current_key": "AIzaSyDBYGc2XI9MCvAQ9BZ8Q_xDPnKm-4RqkIY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "196412589188-qnnuoa0c5rlvqpjanmmutsl4n8narla7.apps.googleusercontent.com",
+              "client_id": "281545360796-suo03ngrrs867la51k1g1vra74o97pot.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
