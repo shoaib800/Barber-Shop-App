@@ -33,7 +33,7 @@ public class SetupProfileActivity extends AppCompatActivity {
     FirebaseStorage storage;
 
     Uri selectedImage;
-
+// Testing 
     ImageView imageView;
     EditText textName;
     EditText textAddress;
