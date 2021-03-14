@@ -11,11 +11,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import Common.Common;
-import Model.User;
-import butterknife.BindView;
-import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
+import shoaib.dev.barbershopapp.Common.Common;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 //    void SkipLoginJustGoHome()
 //    {
 //        Intent intent =new Intent(MainActivity.this, UserHome.class);
-//        intent.putExtra(Common.IS_LOGIN, false);
+//        intent.putExtra(shoaib.dev.barbershopapp.Common.IS_LOGIN, false);
 //        startActivity(intent);
 //    }
 
@@ -58,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         if(firebaseUser != null) {
-            Intent intent = new Intent(MainActivity.this, SetupProfileActivity.class);
+            Intent intent = new Intent(MainActivity.this, UserHome.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
             startActivity(intent);
 

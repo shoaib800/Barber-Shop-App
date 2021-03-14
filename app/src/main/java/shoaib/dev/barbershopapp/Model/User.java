@@ -1,4 +1,4 @@
-package Model;
+package shoaib.dev.barbershopapp.Model;
 
 public class User {
     private String uid, name, address, phoneNumber, profileImage;

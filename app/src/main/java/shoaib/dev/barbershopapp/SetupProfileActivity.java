@@ -16,16 +16,14 @@ import android.widget.ImageView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import Model.User;
+import shoaib.dev.barbershopapp.Common.Common;
+import shoaib.dev.barbershopapp.Model.User;
 
 public class SetupProfileActivity extends AppCompatActivity {
 
@@ -83,7 +81,7 @@ public class SetupProfileActivity extends AppCompatActivity {
                 String address = textAddress.getText().toString();
 
                 if (address.isEmpty()){
-                    textAddress.setError("Please type a name");
+                    textAddress.setError("Please type an address");
                     return;
                 }
 
