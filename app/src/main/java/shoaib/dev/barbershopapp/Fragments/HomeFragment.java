@@ -27,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -140,7 +141,6 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
             loadBanner();
         }
 
-
         return view;
     }
 
@@ -171,9 +171,8 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
 
     private void setUserInformation() {
 
-
         layout_user_information.setVisibility(View.VISIBLE);
-        txt_user_name.setText(firebaseAuth.getCurrentUser().getDisplayName());
+        txt_user_name.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser().getDisplayName()));
         txt_phone.setText(firebaseAuth.getCurrentUser().getPhoneNumber());
     }
 

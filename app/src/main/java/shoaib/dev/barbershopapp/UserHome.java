@@ -22,7 +22,6 @@ public class UserHome extends AppCompatActivity {
 
     BottomSheetDialog bottomSheetDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
