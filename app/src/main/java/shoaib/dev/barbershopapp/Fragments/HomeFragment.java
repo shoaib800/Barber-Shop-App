@@ -1,15 +1,19 @@
 package shoaib.dev.barbershopapp.Fragments;
 
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.transition.Slide;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,12 +23,20 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import shoaib.dev.barbershopapp.Adapter.HomeSliderAdapter;
+import shoaib.dev.barbershopapp.Adapter.LookbookAdapter;
 import shoaib.dev.barbershopapp.Common.Common;
 import shoaib.dev.barbershopapp.Interface.IBannerLoadListener;
 import shoaib.dev.barbershopapp.Interface.ILookbookLoadListener;
@@ -59,11 +72,15 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
     @BindView(R.id.txt_phone)
     TextView txt_phone;
 
+    @BindView(R.id.profile_image)
+    ImageView profile_image;
+
     @BindView(R.id.banner_slider)
     Slider banner_slider;
 
     @BindView(R.id.recycler_look_book)
     RecyclerView recycler_look_book;
+
 
     //FireStore
     CollectionReference bannerRef, lookbookRef;
@@ -74,6 +91,12 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference databaseUsers = database.getReference("Users");
+    String id = firebaseAuth.getCurrentUser().getUid();
+    DatabaseReference username = databaseUsers.child(id).child("name");
+    DatabaseReference profile_img = databaseUsers.child(id).child("profileImage");
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -111,7 +134,6 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
     public void onCreate(Bundle savedInstanceState) {
 
 
-
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -138,10 +160,37 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
 
             setUserInformation();
             loadBanner();
+            loadLookBook();
         }
 
 
         return view;
+    }
+
+    private void loadLookBook() {
+        lookbookRef.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<Banner> lookbooks = new ArrayList<>();
+                        if(task.isSuccessful())
+                        {
+                            for(QueryDocumentSnapshot bannerSnapShot:task.getResult())
+                            {
+                                Banner banner = bannerSnapShot.toObject(Banner.class);
+                                lookbooks.add(banner);
+                            }
+                            iLookbookLoadListener.onLookbookLoadSuccess(lookbooks);
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                iLookbookLoadListener.onLookbookLoadFailed(e.getMessage());
+            }
+        });
+
     }
 
     private void loadBanner() {
@@ -172,19 +221,51 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
     private void setUserInformation() {
 
 
+
         layout_user_information.setVisibility(View.VISIBLE);
-        txt_user_name.setText(firebaseAuth.getCurrentUser().getDisplayName());
+
+
+        profile_img.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String profileImg = dataSnapshot.getValue().toString();
+                Picasso.get().load(profileImg).into(profile_image);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+            username.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String username = dataSnapshot.getValue().toString();
+                txt_user_name.setText(username);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         txt_phone.setText(firebaseAuth.getCurrentUser().getPhoneNumber());
     }
 
+
     @Override
     public void onLookbookLoadSuccess(List<Banner> banners) {
+        recycler_look_book.setHasFixedSize(true);
+        recycler_look_book.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycler_look_book.setAdapter(new LookbookAdapter(getActivity(), banners));
 
     }
 
     @Override
     public void onLookbookLoadFailed(String message) {
-
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
