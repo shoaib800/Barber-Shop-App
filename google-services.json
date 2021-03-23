@@ -42,6 +42,43 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281545360796:android:c0116e2e73f18b3a367459",
+        "android_client_info": {
+          "package_name": "shoaib.dev.barbershopapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281545360796-icraovp735vjlhtc4l8gu155822kos2k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shoaib.dev.barbershopapp",
+            "certificate_hash": "4bfc08d43b3437ce776e2f295d37678256ca5eb6"
+          }
+        },
+        {
+          "client_id": "281545360796-suo03ngrrs867la51k1g1vra74o97pot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBYGc2XI9MCvAQ9BZ8Q_xDPnKm-4RqkIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281545360796-suo03ngrrs867la51k1g1vra74o97pot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

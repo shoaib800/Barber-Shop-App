@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -30,6 +31,7 @@ public class SetupProfileActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
+    FirebaseUser firebaseUser;
 
     Uri selectedImage;
 
@@ -56,6 +58,8 @@ public class SetupProfileActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
+        firebaseUser = auth.getCurrentUser();
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +110,7 @@ public class SetupProfileActivity extends AppCompatActivity {
 
                                         database.getReference()
                                                 .child("Users")
-                                                .child(uid)
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                 .setValue(user)
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
