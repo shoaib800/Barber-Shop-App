@@ -1,6 +1,5 @@
 package shoaib.dev.barbershopapp.Fragments;
 
-import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,11 +42,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import shoaib.dev.barbershopapp.Adapter.HomeSliderAdapter;
 import shoaib.dev.barbershopapp.Adapter.LookbookAdapter;
-import shoaib.dev.barbershopapp.BookingActivity;
 import shoaib.dev.barbershopapp.Common.Common;
 import shoaib.dev.barbershopapp.Interface.IBannerLoadListener;
 import shoaib.dev.barbershopapp.Interface.ILookbookLoadListener;
@@ -83,11 +80,6 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
 
     @BindView(R.id.recycler_look_book)
     RecyclerView recycler_look_book;
-
-    @OnClick(R.id.card_view_booking)
-    void booking() {
-        startActivity(new Intent(getActivity(), BookingActivity.class));
-    }
 
 
     //FireStore

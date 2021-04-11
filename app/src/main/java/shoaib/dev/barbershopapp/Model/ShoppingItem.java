@@ -1,7 +1,11 @@
 package shoaib.dev.barbershopapp.Model;
 
 public class ShoppingItem {
+<<<<<<< HEAD
+    private String name, image;
+=======
     private String id,name,image;
+>>>>>>> cde3a38f54db9abfdd4cb4ce3753ae782af8e33f
     private Long price;
 
     public ShoppingItem() {
@@ -30,6 +34,8 @@ public class ShoppingItem {
     public void setPrice(Long price) {
         this.price = price;
     }
+<<<<<<< HEAD
+=======
 
     public String getId() {
         return id;
@@ -38,4 +44,5 @@ public class ShoppingItem {
     public void setId(String id) {
         this.id = id;
     }
+>>>>>>> cde3a38f54db9abfdd4cb4ce3753ae782af8e33f
 }

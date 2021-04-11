@@ -15,4 +15,9 @@
     <string name="barber_s_shop_app">Barber\'s Shop App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Shopping_fragment_wax">Wax</string>
+    <string name="Shopping_fragment_spray">Spray</string>
+    <string name="Shopping_fragment_hair_care">Hair Care</string>
+    <string name="Shopping_fragment_body_care">Body Care</string>
+
 </resources>
