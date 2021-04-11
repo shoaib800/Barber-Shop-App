@@ -1,19 +1,30 @@
 package shoaib.dev.barbershopapp.Common;
 
+import android.content.Intent;
+import android.os.Parcelable;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import shoaib.dev.barbershopapp.Model.Barber;
+import shoaib.dev.barbershopapp.Model.Salon;
 import shoaib.dev.barbershopapp.Model.User;
 
 public class Common {
 
-    public static String IS_LOGIN ="IsLogin";
+    public static final String KEY_ENABLE_BUTTON_NEXT = "ENABLE_BUTTON_NEXT";
+    public static final String KEY_SALON_STORE = "SALON_SAVE";
+    public static final String KEY_BARBER_LOAD_DONE = "BARBER_LOAD_DONE";
+    public static final String KEY_DISPLAY_TIME_SLOT = "DISPLAY_TIME_SLOT";
+    public static final String KEY_STEP = "STEP";
+    public static final String KEY_BARBER_SELECTED = "BARBER_SELECTED";
+    public static final int TIME_SLOT_TOTAL = 20;
+    public static final Object DISABLE_TAG = "DISABLE";
+    public static final String KEY_TIME_SLOT = "TIME_SLOT";
+    public static final String KEY_CONFIRM_BOOKING = "CONFIRM_BOOKING";
+    public static final String EVENT_URI_CACHE = "URI_EVENT_SAVE";
+    public static String IS_LOGIN = "IsLogin";
     public static User currentUser;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public static String formatShoppingItemName;
-
-    public static String formatShoppingItemName(String name) {
-        return name.length() > 13 ? new StringBuilder(name.substring(0, 10)).append("...").toString():name;
-    }
-=======
     public static Salon currentSalon;
     public static int step = 0; //init first step is 0
     public static String city = "";
@@ -71,7 +82,4 @@ public class Common {
         }
     }
 
->>>>>>> cde3a38f54db9abfdd4cb4ce3753ae782af8e33f
-=======
->>>>>>> c28b9ace73892c2a16f1c3bbce35a67dc57bee4e
 }
