@@ -12,8 +12,6 @@
     <color name="ColorDivider">#BDBDBD</color>
     <color name="ColorWhite">#FFFFFF</color>
     <color name="ColorBackground">#FDF9EE</color>
-    <color name="Background_dark">#222425</color>
-    <color name="Black">#000000</color>
 
 
 </resources>

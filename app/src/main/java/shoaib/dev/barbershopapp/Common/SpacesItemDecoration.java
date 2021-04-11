@@ -12,10 +12,7 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
     public SpacesItemDecoration(int space) {
         this.space = space;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> cde3a38f54db9abfdd4cb4ce3753ae782af8e33f
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);

@@ -2,163 +2,65 @@ package shoaib.dev.barbershopapp.Fragments;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-import shoaib.dev.barbershopapp.Adapter.MyShoppingItemAdapter;
-import shoaib.dev.barbershopapp.Common.SpacesItemDecoration;
-import shoaib.dev.barbershopapp.Interface.IShoppingDataLoadListener;
-import shoaib.dev.barbershopapp.Model.ShoppingItem;
 import shoaib.dev.barbershopapp.R;
 
-public class ShoppingFragment extends Fragment implements IShoppingDataLoadListener {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link ShoppingFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class ShoppingFragment extends Fragment {
 
-    CollectionReference shoppingItemRef;
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-    IShoppingDataLoadListener iShoppingDataLoadListener;
-
-    Unbinder unbinder;
-
-    @BindView(R.id.chip_group)
-    ChipGroup chipGroup;
-
-    @BindView(R.id.chip_wax)
-    Chip chip_wax;
-    @OnClick(R.id.chip_wax)
-    void waxChipClick(){
-        setSelectedChip(chip_wax);
-        loadShoppingItem("Wax");
-    }
-
-    @BindView(R.id.chip_spray)
-    Chip chip_spray;
-    @OnClick(R.id.chip_spray)
-    void sprayChipClick(){
-        setSelectedChip(chip_spray);
-        loadShoppingItem("Spray");
-    }
-
-    @BindView(R.id.chip_body_care)
-    Chip chip_body_care;
-    @OnClick(R.id.chip_body_care)
-    void bodyCareChipClick(){
-        setSelectedChip(chip_body_care);
-        loadShoppingItem("BodyCare");
-    }
-
-    @BindView(R.id.chip_hair_care)
-    Chip chip_hair_care;
-    @OnClick(R.id.chip_hair_care)
-    void hairCareChipClick(){
-        setSelectedChip(chip_hair_care);
-        loadShoppingItem("HairCare");
-    }
-
-    @BindView(R.id.recycler_items)
-    RecyclerView recycler_items;
-
-    private void loadShoppingItem(String itemMenu) {
-        shoppingItemRef = FirebaseFirestore.getInstance().collection("Shopping")
-                .document(itemMenu)
-                .collection("Items");
-        // Get Data
-        shoppingItemRef.get()
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        iShoppingDataLoadListener.onShoppingDataLoadFailed(e.getMessage());
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    List<ShoppingItem> shoppingItems = new ArrayList<>();
-                    for (DocumentSnapshot itemSnapShot:task.getResult())
-                    {
-                        ShoppingItem shoppingItem = itemSnapShot.toObject(ShoppingItem.class);
-                        shoppingItems.add(shoppingItem);
-                    }
-                    iShoppingDataLoadListener.onShoppingDataLoadSuccess(shoppingItems);
-                }
-            }
-        });
-
-    }
-
-    private void setSelectedChip( Chip chip){
-        // For setting Color of chip
-
-        for(int i=0; i< chipGroup.getChildCount();i++){
-            Chip chipItem = (Chip)chipGroup.getChildAt(i);
-            if (chipItem.getId() != chip.getId()) // if not selected
-            {
-                chipItem.setChipBackgroundColorResource(android.R.color.darker_gray);
-                chipItem.setTextColor(getResources().getColor(android.R.color.white));
-            }
-            else //if selected
-            {
-                chipItem.setChipBackgroundColorResource(android.R.color.holo_orange_dark);
-                chipItem.setTextColor(getResources().getColor(android.R.color.black));
-            }
-
-        }
-    }
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     public ShoppingFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ShoppingFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static ShoppingFragment newInstance(String param1, String param2) {
+        ShoppingFragment fragment = new ShoppingFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_shopping, viewGroup, false);
-
-        unbinder= ButterKnife.bind(this, itemView);
-        iShoppingDataLoadListener =this;
-
-        initView();
-
-        return itemView;
-    }
-
-    private void initView() {
-        recycler_items.setHasFixedSize(true);
-        recycler_items.setLayoutManager(new GridLayoutManager(getContext(),2));
-        recycler_items.addItemDecoration(new SpacesItemDecoration(8));
-    }
-
-    @Override
-    public void onShoppingDataLoadSuccess(List<ShoppingItem> shoppingItemList) {
-        MyShoppingItemAdapter adapter = new MyShoppingItemAdapter(getContext(),shoppingItemList);
-        recycler_items.setAdapter(adapter);
-    }
-
-    @Override
-    public void onShoppingDataLoadFailed(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_shopping, container, false);
     }
 }
