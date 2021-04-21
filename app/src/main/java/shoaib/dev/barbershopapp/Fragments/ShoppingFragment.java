@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import shoaib.dev.barbershopapp.Adapter.MyShoppingItemAdapter;
+import shoaib.dev.barbershopapp.Common.SpacesItemDecoration;
 import shoaib.dev.barbershopapp.Interface.IShoppingDataLoadListener;
 import shoaib.dev.barbershopapp.Model.ShoppingItem;
 import shoaib.dev.barbershopapp.R;
@@ -45,8 +49,19 @@ public class ShoppingFragment extends Fragment implements IShoppingDataLoadListe
     @OnClick(R.id.chip_wax)
     void waxChipClick(){
         setSelectedChip(chip_wax);
-        loadShoppingItem(chip_wax.getText().toString());
+        loadShoppingItem("Wax");
     }
+
+    @BindView(R.id.chip_spray)
+    Chip chip_spray;
+    @OnClick(R.id.chip_spray)
+    void sprayChipClick(){
+        setSelectedChip(chip_spray);
+        loadShoppingItem("Spray");
+    }
+
+    @BindView(R.id.recycler_items)
+    RecyclerView recycler_items;
 
     private void loadShoppingItem(String itemMenu) {
         shoppingItemRef = FirebaseFirestore.getInstance().collection("Shopping")
@@ -109,11 +124,24 @@ public class ShoppingFragment extends Fragment implements IShoppingDataLoadListe
 
         unbinder = ButterKnife.bind(this, itemView);
         iShoppingDataLoadListener = this;
+
+        // Default Load
+        loadShoppingItem("Wax");
+
+        initView();
         return itemView;
+    }
+
+    private void initView() {
+        recycler_items.setHasFixedSize(true);
+        recycler_items.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recycler_items.addItemDecoration(new SpacesItemDecoration(8));
     }
 
     @Override
     public void onShoppingDataLoadSuccess(List<ShoppingItem> shoppingItemList) {
+        MyShoppingItemAdapter adapter = new MyShoppingItemAdapter(getContext(),shoppingItemList);
+        recycler_items.setAdapter(adapter);
 
     }
 
