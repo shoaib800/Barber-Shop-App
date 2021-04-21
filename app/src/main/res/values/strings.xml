@@ -19,4 +19,7 @@
     <string name="fragment_shopping_chip_spray">Spray</string>
     <string name="fragment_shopping_hair_care">Hair Care</string>
     <string name="fragment_shopping_body_care">Body Care</string>
+    <string name="shopping_item_picture">Shopping item Picture</string>
+    <string name="hair_style_wax">Hair Style Wax</string>
+    <string name="_20">$20</string>
 </resources>
