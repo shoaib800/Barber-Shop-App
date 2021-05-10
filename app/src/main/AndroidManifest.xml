@@ -3,6 +3,8 @@
     package="shoaib.dev.barbershopapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BookingActivity"></activity>
+        <service
+            android:name=".Service.MyFCMService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+
+        </service>
+
+        <activity android:name=".CartActivity" />
+        <activity android:name=".BookingActivity" />
         <activity
             android:name=".SetupProfileActivity"
             android:screenOrientation="portrait"
