@@ -35,15 +35,22 @@ import shoaib.dev.barbershopapp.Interface.IShoppingDataLoadListener;
 import shoaib.dev.barbershopapp.Model.ShoppingItem;
 import shoaib.dev.barbershopapp.R;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link ShoppingFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class ShoppingFragment extends Fragment implements IShoppingDataLoadListener {
-// Model for Shopping Item
+
     CollectionReference shoppingItemRef;
+
     IShoppingDataLoadListener iShoppingDataLoadListener;
 
     Unbinder unbinder;
 
     @BindView(R.id.chip_group)
     ChipGroup chipGroup;
+
     @BindView(R.id.chip_wax)
     Chip chip_wax;
     @OnClick(R.id.chip_wax)
@@ -60,51 +67,65 @@ public class ShoppingFragment extends Fragment implements IShoppingDataLoadListe
         loadShoppingItem("Spray");
     }
 
+    @BindView(R.id.chip_body_care)
+    Chip chip_body_care;
+    @OnClick(R.id.chip_body_care)
+    void bodyCareChipClick(){
+        setSelectedChip(chip_body_care);
+        loadShoppingItem("BodyCare");
+    }
+
+    @BindView(R.id.chip_hair_care)
+    Chip chip_hair_care;
+    @OnClick(R.id.chip_hair_care)
+    void hairCareChipClick(){
+        setSelectedChip(chip_hair_care);
+        loadShoppingItem("HairCare");
+    }
+
     @BindView(R.id.recycler_items)
     RecyclerView recycler_items;
 
     private void loadShoppingItem(String itemMenu) {
         shoppingItemRef = FirebaseFirestore.getInstance().collection("Shopping")
-                        .document(itemMenu)
-                        .collection("Items");
-
-        // Get Data
-
-                shoppingItemRef.get()
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                iShoppingDataLoadListener.onShoppingDataLoadFailed(e.getMessage());
-                            }
-                        }).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .document(itemMenu)
+                .collection("Items");
+        //Get data
+        shoppingItemRef.get()
+                .addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful())
-                            {
-                                List<ShoppingItem> shoppingItems = new ArrayList<>();
-                                for(DocumentSnapshot itemSnapShot:task.getResult())
-                                {
-                                    ShoppingItem shoppingItem = itemSnapShot.toObject(ShoppingItem.class);
-                                    shoppingItems.add(shoppingItem);
-                                }
-                                iShoppingDataLoadListener.onShoppingDataLoadSuccess(shoppingItems);
-                            }
+                    public void onFailure(@NonNull Exception e) {
+                        iShoppingDataLoadListener.onShoppingDataLoadFailed(e.getMessage());
                     }
-                });
-
+                }).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    List<ShoppingItem> shoppingItems = new ArrayList<>();
+                    for (DocumentSnapshot itemSnapShot:task.getResult())
+                    {
+                        ShoppingItem shoppingItem = itemSnapShot.toObject(ShoppingItem.class);
+                        shoppingItem.setId(itemSnapShot.getId());//Remember add it if you don't want to get null reference
+                        shoppingItems.add(shoppingItem);
+                    }
+                    iShoppingDataLoadListener.onShoppingDataLoadSuccess(shoppingItems);
+                }
+            }
+        });
     }
 
     private void setSelectedChip(Chip chip) {
-        // Setting Color of chips on selection
-        for (int i=0; i<chipGroup.getChildCount();i++){
-
+        //set color
+        for (int i = 0; i < chipGroup.getChildCount(); i++)
+        {
             Chip chipItem = (Chip)chipGroup.getChildAt(i);
-            if (chipItem.getId() != chip.getId())   // If Not Selected
+            if (chipItem.getId() != chip.getId()) // if not selected
             {
                 chipItem.setChipBackgroundColorResource(android.R.color.darker_gray);
                 chipItem.setTextColor(getResources().getColor(android.R.color.white));
             }
-            else // If Selected
+            else //if selected
             {
                 chipItem.setChipBackgroundColorResource(android.R.color.holo_orange_dark);
                 chipItem.setTextColor(getResources().getColor(android.R.color.black));
@@ -112,8 +133,44 @@ public class ShoppingFragment extends Fragment implements IShoppingDataLoadListe
         }
     }
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
     public ShoppingFragment() {
         // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ShoppingFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static ShoppingFragment newInstance(String param1, String param2) {
+        ShoppingFragment fragment = new ShoppingFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
@@ -125,16 +182,17 @@ public class ShoppingFragment extends Fragment implements IShoppingDataLoadListe
         unbinder = ButterKnife.bind(this, itemView);
         iShoppingDataLoadListener = this;
 
-        // Default Load
+        //Default load
         loadShoppingItem("Wax");
 
         initView();
+
         return itemView;
     }
 
     private void initView() {
         recycler_items.setHasFixedSize(true);
-        recycler_items.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recycler_items.setLayoutManager(new GridLayoutManager(getContext(),2));
         recycler_items.addItemDecoration(new SpacesItemDecoration(8));
     }
 
@@ -142,7 +200,6 @@ public class ShoppingFragment extends Fragment implements IShoppingDataLoadListe
     public void onShoppingDataLoadSuccess(List<ShoppingItem> shoppingItemList) {
         MyShoppingItemAdapter adapter = new MyShoppingItemAdapter(getContext(),shoppingItemList);
         recycler_items.setAdapter(adapter);
-
     }
 
     @Override

@@ -1,6 +1,7 @@
 package shoaib.dev.barbershopapp.Model;
 
-import java.security.Timestamp;
+
+import com.google.firebase.Timestamp;
 
 public class BookingInformation {
     private String cityBook, customerName, customerPhone, time, barberId, barberName, salonId, salonName, salonAddress;

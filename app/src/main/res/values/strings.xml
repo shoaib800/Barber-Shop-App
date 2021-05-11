@@ -15,11 +15,9 @@
     <string name="barber_s_shop_app">Barber\'s Shop App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="fragment_shopping_chip_wax">Wax</string>
-    <string name="fragment_shopping_chip_spray">Spray</string>
-    <string name="fragment_shopping_hair_care">Hair Care</string>
-    <string name="fragment_shopping_body_care">Body Care</string>
-    <string name="shopping_item_picture">Shopping item Picture</string>
-    <string name="hair_style_wax">Hair Style Wax</string>
-    <string name="_20">$20</string>
+
+    <string name="address_bullet">\u2022 Address:</string>
+    <string name="time_bullet">\u2022 Time:</string>
+    <string name="stylelist_bullet">\u2022 Stylelist:</string>
+    <string name="bullet">\u2022</string>
 </resources>

@@ -201,9 +201,9 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-                if (Common.currentDate.getTimeInMillis() != date.getTimeInMillis())
+                if (Common.bookingDate.getTimeInMillis() != date.getTimeInMillis())
                 {
-                    Common.currentDate = date; // this code will not run again if you select new day same with date selected
+                    Common.bookingDate = date; // this code will not run again if you select new day same with date selected
                     loadAvailableTimeSlotOfBarber(Common.currentBarber.getBarberId(),
                             simpleDateFormat.format(date.getTime()));
                 }
