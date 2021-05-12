@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="shoaib.dev.barbershopapp">
+    package="com.shoaib.barbershopapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
@@ -14,34 +14,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".Service.MyFCMService">
+            android:name="com.shoaib.barbershopapp.Service.MyFCMService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
 
         </service>
 
-        <activity android:name=".CartActivity" />
-        <activity android:name=".BookingActivity" />
+        <activity android:name="com.shoaib.barbershopapp.CartActivity" />
+        <activity android:name="com.shoaib.barbershopapp.BookingActivity" />
         <activity
-            android:name=".SetupProfileActivity"
+            android:name="com.shoaib.barbershopapp.SetupProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".UserHome" />
+        <activity android:name="com.shoaib.barbershopapp.UserHome" />
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".VerifyOTPActivity"
+            android:name="com.shoaib.barbershopapp.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".SendOTPActivity"
+            android:name="com.shoaib.barbershopapp.VerifyOTPActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".SplashScreen"
+            android:name="com.shoaib.barbershopapp.SendOTPActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.shoaib.barbershopapp.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
