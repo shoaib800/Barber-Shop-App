@@ -1,6 +1,6 @@
 package com.shoaib.barbershopapp.Retrofit;
 
-import android.database.Observable;
+import io.reactivex.Observable;
 
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
