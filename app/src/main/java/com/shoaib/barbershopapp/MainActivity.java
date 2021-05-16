@@ -45,17 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnLogin = findViewById(R.id.btn_login);
-        TextView txtSkip = findViewById(R.id.txt_skip);
-
-        txtSkip.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-
-                Intent intent =new Intent(MainActivity.this, UserHome.class);
-                startActivity(intent);
-            }
-        });
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -65,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 

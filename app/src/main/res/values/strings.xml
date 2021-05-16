@@ -6,7 +6,6 @@
     <string name="_92">+92-</string>
     <string name="_3001234567">3001234567</string>
     <string name="get_otp">Get OTP</string>
-    <string name="just_skip">Just Skip</string>
     <string name="login">Login</string>
     <string name="enter_the_otp_sent_to">Enter the OTP sent to</string>
     <string name="didn_t_receive_the_otp">Didn\'t receive the OTP?</string>
@@ -20,4 +19,5 @@
     <string name="time_bullet">\u2022 Time:</string>
     <string name="stylelist_bullet">\u2022 Stylelist:</string>
     <string name="bullet">\u2022</string>
+    <string name="login_to_continue">Login to Continue</string>
 </resources>

@@ -11,7 +11,7 @@ import com.shoaib.barbershopapp.Model.FCMSendData;
 public interface IFCMApi {
     @Headers({
             "Content-Type:application/json",
-            "Authorization:key=AAAAl0AwVsA:APA91bHrx9-SGwU_pES02DMK4Vfre98wdL4esuJPQsLJoYQph85MC-XUDiDFhLManQjx39-PK51-j_voE03IQE-sdQTVhAzOm6ANqtur3_vvQn_-MkhQdLooj_jvRZHlFPlbTDveO4Ik"
+            "Authorization:key=AAAAQY1pRZw:APA91bENImwHGp36TPcewEZD4eAba-Qhwx2owAqeESWrw1hLJ0WsCnHZWptTTpuIo0E5L-tlsnMEGvlR21t6JxajQ6J6vSzkNuj9M9JTR4ARZGRss9Lw79QJLB1m5qfplPO7-qg_U2-n"
 
     })
     @POST("fcm/send")
