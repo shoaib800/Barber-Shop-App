@@ -17,21 +17,24 @@ import java.util.List;
 
 import com.shoaib.barbershopapp.Common.Common;
 import com.shoaib.barbershopapp.Interface.IRecyclerItemSelectedListener;
+import com.shoaib.barbershopapp.Model.EventBus.EnableNextButton;
 import com.shoaib.barbershopapp.Model.Salon;
 import com.shoaib.barbershopapp.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHolder> {
 
     Context context;
     List<Salon> salonList;
     List<CardView> cardViewList;
-    LocalBroadcastManager localBroadcastManager;
+//    LocalBroadcastManager localBroadcastManager;
 
     public MySalonAdapter(Context context, List<Salon> salonList) {
         this.context = context;
         this.salonList = salonList;
         cardViewList = new ArrayList<>();
-        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+//        localBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
 
     @NonNull
@@ -61,10 +64,16 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
                         .getColor(android.R.color.holo_orange_dark));
 
                 //Send broadcasting to tell booking activity enable button next
-                Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-                intent.putExtra(Common.KEY_SALON_STORE, salonList.get(pos));
-                intent.putExtra(Common.KEY_STEP, 1);
-                localBroadcastManager.sendBroadcast(intent);
+//                Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
+//                intent.putExtra(Common.KEY_SALON_STORE, salonList.get(pos));
+//                intent.putExtra(Common.KEY_STEP, 1);
+//                localBroadcastManager.sendBroadcast(intent);
+
+                //==================================================
+                //Event Bus
+                EventBus.getDefault().postSticky(new EnableNextButton(1,salonList.get(pos)));
+
+                //=================================================
 
             }
         });

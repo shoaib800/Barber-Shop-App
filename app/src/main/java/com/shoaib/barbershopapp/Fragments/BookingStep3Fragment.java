@@ -44,8 +44,13 @@ import com.shoaib.barbershopapp.Adapter.MyTimeSlotAdapter;
 import com.shoaib.barbershopapp.Common.Common;
 import com.shoaib.barbershopapp.Common.SpacesItemDecoration;
 import com.shoaib.barbershopapp.Interface.ITimeSlotLoadListener;
+import com.shoaib.barbershopapp.Model.EventBus.DisplayTimeSlotEvent;
 import com.shoaib.barbershopapp.Model.TimeSlot;
 import com.shoaib.barbershopapp.R;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListener {
     //Variable
@@ -54,7 +59,7 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
     AlertDialog dialog;
 
     Unbinder unbinder;
-    LocalBroadcastManager localBroadcastManager;
+//    LocalBroadcastManager localBroadcastManager;
 
     @BindView(R.id.recycler_time_slot)
     RecyclerView recycler_time_slot;
@@ -62,15 +67,44 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
     HorizontalCalendarView calendarView;
     SimpleDateFormat simpleDateFormat;
 
-    BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
+//    BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            Calendar date = Calendar.getInstance();
+//            date.add(Calendar.DATE, 0);//add current date
+//            loadAvailableTimeSlotOfBarber(Common.currentBarber.getBarberId(),
+//                    simpleDateFormat.format(date.getTime()));
+//        }
+//    };
+
+    //================================================================
+    //EVENT BUS START
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void loadAllTimeSlotAvailable(DisplayTimeSlotEvent event)
+    {
+        if(event.isDisplay())
+        {
+            //In Booking Activity, We passed this event as True
             Calendar date = Calendar.getInstance();
-            date.add(Calendar.DATE, 0);//add current date
-            loadAvailableTimeSlotOfBarber(Common.currentBarber.getBarberId(),
-                    simpleDateFormat.format(date.getTime()));
+            date.add(Calendar.DATE, 0); //Add Current Date
+            loadAvailableTimeSlotOfBarber(Common.currentBarber.getBarberId(), simpleDateFormat.format(date.getTime()));
         }
-    };
+    }
+
+    //================================================================
 
     private void loadAvailableTimeSlotOfBarber(String barberId, final String bookDate) {
         dialog.show();
@@ -135,6 +169,8 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
 
     }
 
+
+
     static BookingStep3Fragment instance;
 
     public static BookingStep3Fragment getInstance()
@@ -151,8 +187,8 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
 
         iTimeSlotLoadListener = this;
 
-        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager.registerReceiver(displayTimeSlot, new IntentFilter(Common.KEY_DISPLAY_TIME_SLOT));
+//        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+//        localBroadcastManager.registerReceiver(displayTimeSlot, new IntentFilter(Common.KEY_DISPLAY_TIME_SLOT));
 
         simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy");//14_5_2019 (this is key)
         dialog = new SpotsDialog.Builder().setContext(getContext()).setCancelable(false).build();
@@ -160,11 +196,6 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotLoadListe
 
     }
 
-    @Override
-    public void onDestroy() {
-        localBroadcastManager.unregisterReceiver(displayTimeSlot);
-        super.onDestroy();
-    }
 
     @Nullable
     @Override

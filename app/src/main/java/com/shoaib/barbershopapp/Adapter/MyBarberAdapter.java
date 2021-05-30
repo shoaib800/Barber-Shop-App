@@ -19,20 +19,23 @@ import java.util.List;
 import com.shoaib.barbershopapp.Common.Common;
 import com.shoaib.barbershopapp.Interface.IRecyclerItemSelectedListener;
 import com.shoaib.barbershopapp.Model.Barber;
+import com.shoaib.barbershopapp.Model.EventBus.EnableNextButton;
 import com.shoaib.barbershopapp.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyViewHolder> {
 
     Context context;
     List<Barber> barberList;
     List<CardView> cardViewList;
-    LocalBroadcastManager localBroadcastManager;
+//    LocalBroadcastManager localBroadcastManager;
 
     public MyBarberAdapter(Context context, List<Barber> barberList) {
         this.context = context;
         this.barberList = barberList;
         cardViewList = new ArrayList<>();
-        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+//        localBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
 
     @NonNull
@@ -46,7 +49,11 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.txt_barber_name.setText(barberList.get(i).getName());
-        myViewHolder.ratingBar.setRating((float)barberList.get(i).getRating());
+        if(barberList.get(i).getRatingTimes() != 0) //NULL Is not working (by Junaid)
+            myViewHolder.ratingBar.setRating((float)barberList.get(i).getRating()/barberList.get(i).getRatingTimes());
+        else
+            myViewHolder.ratingBar.setRating(0);
+
         if (!cardViewList.contains(myViewHolder.card_barber))
             cardViewList.add(myViewHolder.card_barber);
 
@@ -67,10 +74,16 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
                 );
 
                 //Send local broadcast to enable button next
-                Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-                intent.putExtra(Common.KEY_BARBER_SELECTED, barberList.get(pos));
-                intent.putExtra(Common.KEY_STEP, 2);
-                localBroadcastManager.sendBroadcast(intent);
+//                Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
+//                intent.putExtra(Common.KEY_BARBER_SELECTED, barberList.get(pos));
+//                intent.putExtra(Common.KEY_STEP, 2);
+//                localBroadcastManager.sendBroadcast(intent);
+
+                //==================================================
+                //Event Bus
+                EventBus.getDefault().postSticky(new EnableNextButton(2,barberList.get(pos)));
+
+                //=================================================
 
             }
         });

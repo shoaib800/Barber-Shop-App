@@ -2,12 +2,17 @@ package com.shoaib.barbershopapp.Model;
 
 
 import com.google.firebase.Timestamp;
+import com.shoaib.barbershopapp.Database.CartItem;
+
+import java.util.List;
 
 public class BookingInformation {
     private String cityBook, customerName, customerPhone, time, barberId, barberName, salonId, salonName, salonAddress;
     private Long slot;
     private Timestamp timestamp;
     private boolean done;
+    private List<CartItem> cartItemList;
+
 
     public BookingInformation() {
     }
@@ -121,5 +126,13 @@ public class BookingInformation {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public List<CartItem> getCartItemList() {
+        return cartItemList;
+    }
+
+    public void setCartItemList(List<CartItem> cartItemList) {
+        this.cartItemList = cartItemList;
     }
 }

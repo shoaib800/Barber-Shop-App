@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
                     if (firebaseUser != null) {
 
+
+
                         //Get Token
                         FirebaseInstanceId.getInstance()
                                 .getInstanceId()

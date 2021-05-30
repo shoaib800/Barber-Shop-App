@@ -13,4 +13,6 @@ public class TimeSlot {
     public void setSlot(Long slot) {
         this.slot = slot;
     }
+
+
 }

@@ -48,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -66,7 +67,12 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import com.shoaib.barbershopapp.Common.Common;
+import com.shoaib.barbershopapp.Database.CartDatabase;
+import com.shoaib.barbershopapp.Database.CartItem;
+import com.shoaib.barbershopapp.Database.DatabaseUtils;
+import com.shoaib.barbershopapp.Interface.ICartItemLoadListener;
 import com.shoaib.barbershopapp.Model.BookingInformation;
+import com.shoaib.barbershopapp.Model.EventBus.ConfirmBookingEvent;
 import com.shoaib.barbershopapp.Model.FCMResponse;
 import com.shoaib.barbershopapp.Model.FCMSendData;
 import com.shoaib.barbershopapp.Model.MyNotification;
@@ -75,14 +81,18 @@ import com.shoaib.barbershopapp.R;
 import com.shoaib.barbershopapp.Retrofit.IFCMApi;
 import com.shoaib.barbershopapp.Retrofit.RetrofitClient;
 
-public class BookingStep4Fragment extends Fragment {
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+public class BookingStep4Fragment extends Fragment implements ICartItemLoadListener {
 
 //    CartDataSource cartDataSource;
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     SimpleDateFormat simpleDateFormat;
-    LocalBroadcastManager localBroadcastManager;
+//    LocalBroadcastManager localBroadcastManager;
     Unbinder unbinder;
     IFCMApi ifcmApi;
 
@@ -117,88 +127,10 @@ public class BookingStep4Fragment extends Fragment {
 
         dialog.show();
 
-        //Process Timestamp
-        //We will use Timestamp to filter all booking with date is greater today
-        //For only display all future booking
-        String startTime = Common.convertTimeSlotToString(Common.currentTimeSlot);
-        String[] convertTime = startTime.split("-"); // Split ex : 9:00 - 10:00
-        // Get start time 9:00
-        String[] startTimeConverter = convertTime[0].split(":");
-        int startHourInt = Integer.parseInt(startTimeConverter[0].trim()); // we get 9
-        int startMinInt = Integer.parseInt(startTimeConverter[1].trim());// we get 00
+        DatabaseUtils.getAllCart(CartDatabase.getInstance(getContext()), this);
 
-        Calendar bookingDateWithourHouse = Calendar.getInstance();
-        bookingDateWithourHouse.setTimeInMillis(Common.bookingDate.getTimeInMillis());
-        bookingDateWithourHouse.set(Calendar.HOUR_OF_DAY, startHourInt);
-        bookingDateWithourHouse.set(Calendar.MINUTE,startMinInt);
 
-        // Create timestamp object and apply to bookingInformation
-        Timestamp timestamp = new Timestamp(bookingDateWithourHouse.getTime());
 
-//        if (Common.currentSalon == null){
-//            Log.d("----->","cueeewnr salalon issue");
-//        }else if (Common.currentBarber == null){
-//            Log.d("----->","cueeewnr babr issue");
-//
-//        }
-//        else{
-//            Log.d("...........",Common.city);
-//            Log.d("...........",Common.currentSalon.getSalonId());
-//            Log.d("...........",Common.currentBarber.getBarberId());
-//            Log.d("...........",Common.currentBarber.getName());
-//            Log.d("...........",Common.currentSalon.getAddress());
-//            Log.d("...........",Common.currentSalon.getName());
-//            Log.d("...........",String.valueOf(Common.currentTimeSlot));
-            //Create booking information
-        final BookingInformation bookingInformation = new BookingInformation();
-
-        bookingInformation.setCityBook(Common.city);
-        bookingInformation.setTimestamp(timestamp);
-        bookingInformation.setDone(false); // Always FALSE, because we will use this field to filter for display on user
-        bookingInformation.setBarberId(Common.currentBarber.getBarberId());
-        bookingInformation.setBarberName(Common.currentBarber.getName());
-        bookingInformation.setCustomerName(user_name);
-        bookingInformation.setCustomerPhone(user_phonenumber);
-        bookingInformation.setSalonId(Common.currentSalon.getSalonId());
-        bookingInformation.setSalonAddress(Common.currentSalon.getAddress());
-        bookingInformation.setSalonName(Common.currentSalon.getName());
-        bookingInformation.setTime(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
-                .append(" at ")
-                .append(simpleDateFormat.format(bookingDateWithourHouse.getTime())).toString());
-
-        bookingInformation.setSlot(Long.valueOf(Common.currentTimeSlot));
-
-        //Submit to barber document
-        // /AllSalons/Jhelum/Branch/cWez0j0p1UqNrr4liN3D/Barber/hsOgnLrmtVOV2yUSUTs3
-        DocumentReference bookingDate = FirebaseFirestore.getInstance()
-                .collection("AllSalons")
-                .document(Common.city)
-                .collection("Branch")
-                .document(Common.currentSalon.getSalonId())
-                .collection("Barber")
-                .document(Common.currentBarber.getBarberId())
-                .collection(Common.simpleDateFormat.format(Common.bookingDate.getTime()))
-                .document(String.valueOf(Common.currentTimeSlot));
-
-        // Write data
-        bookingDate.set(bookingInformation)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        //Here we can write function to check
-                        // if already exist a booking , we will prevent new booking
-
-                       addToUserBooking(bookingInformation);
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                dialog.dismiss();
-
-                Toast.makeText(getContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
         }
 
     private void addToUserBooking(BookingInformation bookingInformation) {
@@ -460,29 +392,21 @@ public class BookingStep4Fragment extends Fragment {
         Common.bookingDate.add(Calendar.DATE, 0); // current Date added
     }
 
-    BroadcastReceiver confirmBookingReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            setData();
-        }
-    };
+//    BroadcastReceiver confirmBookingReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            setData();
+//        }
+//    };
 
-    private void setData() {
-        txt_booking_barber_text.setText(Common.currentBarber.getName());
-        txt_booking_time_text.setText(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
-                .append(" at ")
-                .append(simpleDateFormat.format(Common.bookingDate.getTime())));
-
-        txt_salon_address.setText(Common.currentSalon.getAddress());
-        txt_salon_website.setText(Common.currentSalon.getWebsite());
-        txt_salon_name.setText(Common.currentSalon.getName());
-        txt_salon_open_hours.setText(Common.currentSalon.getOpenHours());
-    }
-
+    //================================================================
+    //EVENT BUS START
 
     @Override
     public void onStart() {
         super.onStart();
+        EventBus.getDefault().register(this);
+
         username.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -499,6 +423,39 @@ public class BookingStep4Fragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void setDataBooking(ConfirmBookingEvent event)
+    {
+        if(event.isConfirm())
+        {
+            setData();
+        }
+    }
+
+    //================================================================
+
+
+    private void setData() {
+        txt_booking_barber_text.setText(Common.currentBarber.getName());
+        txt_booking_time_text.setText(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
+                .append(" at ")
+                .append(simpleDateFormat.format(Common.bookingDate.getTime())));
+
+        txt_salon_address.setText(Common.currentSalon.getAddress());
+        txt_salon_website.setText(Common.currentSalon.getWebsite());
+        txt_salon_name.setText(Common.currentSalon.getName());
+        txt_salon_open_hours.setText(Common.currentSalon.getOpenHours());
+    }
+
+
+
 
     static BookingStep4Fragment instance;
 
@@ -518,8 +475,8 @@ public class BookingStep4Fragment extends Fragment {
         // Apply format for date display
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager.registerReceiver(confirmBookingReceiver, new IntentFilter(Common.KEY_CONFIRM_BOOKING));
+//        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+//        localBroadcastManager.registerReceiver(confirmBookingReceiver, new IntentFilter(Common.KEY_CONFIRM_BOOKING));
 
         dialog = new SpotsDialog.Builder().setContext(getContext()).setCancelable(false)
                 .build();
@@ -527,7 +484,7 @@ public class BookingStep4Fragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        localBroadcastManager.unregisterReceiver(confirmBookingReceiver);
+//        localBroadcastManager.unregisterReceiver(confirmBookingReceiver);
         compositeDisposable.clear();
         super.onDestroy();
     }
@@ -541,6 +498,96 @@ public class BookingStep4Fragment extends Fragment {
         unbinder = ButterKnife.bind(this, itemView);
 
         return itemView;
+
+    }
+
+    @Override
+    public void onGetAllItemFromCartSuccess(List<CartItem> cartItemList) {
+
+        //Process Timestamp
+        //We will use Timestamp to filter all booking with date is greater today
+        //For only display all future booking
+        String startTime = Common.convertTimeSlotToString(Common.currentTimeSlot);
+        String[] convertTime = startTime.split("-"); // Split ex : 9:00 - 10:00
+        // Get start time 9:00
+        String[] startTimeConverter = convertTime[0].split(":");
+        int startHourInt = Integer.parseInt(startTimeConverter[0].trim()); // we get 9
+        int startMinInt = Integer.parseInt(startTimeConverter[1].trim());// we get 00
+
+        Calendar bookingDateWithourHouse = Calendar.getInstance();
+        bookingDateWithourHouse.setTimeInMillis(Common.bookingDate.getTimeInMillis());
+        bookingDateWithourHouse.set(Calendar.HOUR_OF_DAY, startHourInt);
+        bookingDateWithourHouse.set(Calendar.MINUTE,startMinInt);
+
+        // Create timestamp object and apply to bookingInformation
+        Timestamp timestamp = new Timestamp(bookingDateWithourHouse.getTime());
+
+//        if (Common.currentSalon == null){
+//            Log.d("----->","cueeewnr salalon issue");
+//        }else if (Common.currentBarber == null){
+//            Log.d("----->","cueeewnr babr issue");
+//
+//        }
+//        else{
+//            Log.d("...........",Common.city);
+//            Log.d("...........",Common.currentSalon.getSalonId());
+//            Log.d("...........",Common.currentBarber.getBarberId());
+//            Log.d("...........",Common.currentBarber.getName());
+//            Log.d("...........",Common.currentSalon.getAddress());
+//            Log.d("...........",Common.currentSalon.getName());
+//            Log.d("...........",String.valueOf(Common.currentTimeSlot));
+        //Create booking information
+        final BookingInformation bookingInformation = new BookingInformation();
+
+        bookingInformation.setCityBook(Common.city);
+        bookingInformation.setTimestamp(timestamp);
+        bookingInformation.setDone(false); // Always FALSE, because we will use this field to filter for display on user
+        bookingInformation.setBarberId(Common.currentBarber.getBarberId());
+        bookingInformation.setBarberName(Common.currentBarber.getName());
+        bookingInformation.setCustomerName(user_name);
+        bookingInformation.setCustomerPhone(user_phonenumber);
+        bookingInformation.setSalonId(Common.currentSalon.getSalonId());
+        bookingInformation.setSalonAddress(Common.currentSalon.getAddress());
+        bookingInformation.setSalonName(Common.currentSalon.getName());
+        bookingInformation.setTime(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
+                .append(" at ")
+                .append(simpleDateFormat.format(bookingDateWithourHouse.getTime())).toString());
+
+        bookingInformation.setSlot(Long.valueOf(Common.currentTimeSlot));
+        bookingInformation.setCartItemList(cartItemList);
+
+        //Submit to barber document
+        // /AllSalons/Jhelum/Branch/cWez0j0p1UqNrr4liN3D/Barber/hsOgnLrmtVOV2yUSUTs3
+        DocumentReference bookingDate = FirebaseFirestore.getInstance()
+                .collection("AllSalons")
+                .document(Common.city)
+                .collection("Branch")
+                .document(Common.currentSalon.getSalonId())
+                .collection("Barber")
+                .document(Common.currentBarber.getBarberId())
+                .collection(Common.simpleDateFormat.format(Common.bookingDate.getTime()))
+                .document(String.valueOf(Common.currentTimeSlot));
+
+        // Write data
+        bookingDate.set(bookingInformation)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Here we can write function to check
+                        // if already exist a booking , we will prevent new booking
+
+                        DatabaseUtils.clearCart((CartDatabase.getInstance(getContext())));
+                        addToUserBooking(bookingInformation);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                dialog.dismiss();
+
+                Toast.makeText(getContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

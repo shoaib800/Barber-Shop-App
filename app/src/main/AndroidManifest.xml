@@ -13,35 +13,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name="com.shoaib.barbershopapp.Service.MyFCMService">
+        <activity android:name=".HistoryActivity"></activity>
+
+        <service android:name=".Service.MyFCMService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-
         </service>
 
-        <activity android:name="com.shoaib.barbershopapp.CartActivity" />
-        <activity android:name="com.shoaib.barbershopapp.BookingActivity" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".BookingActivity" />
         <activity
-            android:name="com.shoaib.barbershopapp.SetupProfileActivity"
+            android:name=".SetupProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.shoaib.barbershopapp.UserHome" />
+        <activity android:name=".UserHome" />
         <activity
-            android:name="com.shoaib.barbershopapp.MainActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.shoaib.barbershopapp.VerifyOTPActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.shoaib.barbershopapp.SendOTPActivity"
+            android:name=".VerifyOTPActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.shoaib.barbershopapp.SplashScreen"
+            android:name=".SendOTPActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

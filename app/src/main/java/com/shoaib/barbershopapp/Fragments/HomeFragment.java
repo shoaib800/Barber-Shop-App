@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,10 +37,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.nex3z.notificationbadge.NotificationBadge;
+import com.shoaib.barbershopapp.HistoryActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -239,6 +244,11 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
         startActivity(new Intent(getActivity(), BookingActivity.class));
     }
 
+    @OnClick(R.id.card_view_history)
+    void openHistoryActivity() {
+        startActivity(new Intent(getActivity(), HistoryActivity.class));
+    }
+
     @OnClick(R.id.card_view_cart)
     void openCartActivity() {
         startActivity(new Intent(getActivity(), CartActivity.class));
@@ -252,6 +262,9 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
     ILookbookLoadListener iLookbookLoadListener;
     IBookingInfoLoadListener iBookingInfoLoadListener;
     IBookingInformationChangeListener iBookingInformationChangeListener;
+
+    ListenerRegistration userBookingListener = null;
+    EventListener<QuerySnapshot> userBookingEvent = null;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -327,6 +340,18 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
                 iBookingInfoLoadListener.onBookingInfoLoadFailed(e.getMessage());
             }
         });
+
+        //Here, after userBooking has been assign data(collection)
+        //We will make realtime listener here
+        if(userBookingEvent != null) //If UserBookingEvent already init
+        {
+            if(userBookingListener == null) //Only, if UserBoookingListner == null
+            {
+                //That mean we just add 1 time
+                userBookingListener =  userBooking
+                        .addSnapshotListener(userBookingEvent);
+            }
+        }
     }
 
 
@@ -384,12 +409,27 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
             setUserInformation();
             loadBanner();
             loadLookBook();
+            initRealtimeUserBooking(); //Need to declare before Load User Booking
             loadUserBooking();
             countCartItem();
         }
 
 
         return view;
+    }
+
+    private void initRealtimeUserBooking() {
+        //Follow This STeps Carefully
+        if(userBookingEvent == null) //WE only Init event when null
+        {
+            userBookingEvent = new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    //In this Event, When Fired, We will call loadUserBooking again to reload all booking Information
+                    loadUserBooking();
+                }
+            };
+        }
     }
 
     private void countCartItem() {
@@ -550,5 +590,14 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
     @Override
     public void onCartItemCountSuccess(int count) {
         notificationBadge.setText(String.valueOf(count));
+    }
+
+    @Override
+    public void onDestroy() {
+        if(userBookingListener != null)
+        {
+            userBookingListener.remove();
+        }
+        super.onDestroy();
     }
 }

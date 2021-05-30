@@ -18,27 +18,30 @@ import java.util.List;
 
 import com.shoaib.barbershopapp.Common.Common;
 import com.shoaib.barbershopapp.Interface.IRecyclerItemSelectedListener;
+import com.shoaib.barbershopapp.Model.EventBus.EnableNextButton;
 import com.shoaib.barbershopapp.Model.TimeSlot;
 import com.shoaib.barbershopapp.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.MyViewHolder> {
 
         Context context;
         List<TimeSlot> timeSlotList;
         List<CardView> cardViewList;
-        LocalBroadcastManager localBroadcastManager;
+//        LocalBroadcastManager localBroadcastManager;
 
 public MyTimeSlotAdapter(Context context) {
         this.context = context;
         this.timeSlotList = new ArrayList<>();
-        this.localBroadcastManager = LocalBroadcastManager.getInstance(context);
+//        this.localBroadcastManager = LocalBroadcastManager.getInstance(context);
         cardViewList = new ArrayList<>();
         }
 
 public MyTimeSlotAdapter(Context context, List<TimeSlot> timeSlotList) {
         this.context = context;
         this.timeSlotList = timeSlotList;
-        this.localBroadcastManager = LocalBroadcastManager.getInstance(context);
+//        this.localBroadcastManager = LocalBroadcastManager.getInstance(context);
         cardViewList = new ArrayList<>();
         }
 
@@ -51,10 +54,11 @@ public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         }
 
 @Override
-public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
+public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
         myViewHolder.txt_time_slot.setText(new StringBuilder(Common.convertTimeSlotToString(i)).toString());
         if (timeSlotList.size() == 0)//if all position are available, just show list
         {
+            myViewHolder.card_time_slot.setEnabled(true);
         myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(android.R.color.white));
 
         myViewHolder.txt_time_slot_description.setText("Available");
@@ -72,15 +76,16 @@ public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int
         int slot = Integer.parseInt(slotValue.getSlot().toString());
         if (slot == i)// if slot == position
         {
-        //we will set tag for all time slot full
-        //so base on tag, we can set all remain card background without changing full time slut.
-        myViewHolder.card_time_slot.setTag(Common.DISABLE_TAG);
-        myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
+            //we will set tag for all time slot full
+            //so base on tag, we can set all remain card background without changing full time slut.
+            myViewHolder.card_time_slot.setEnabled(false);
+            myViewHolder.card_time_slot.setTag(Common.DISABLE_TAG);
+            myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
 
-        myViewHolder.txt_time_slot_description.setText("Full");
-        myViewHolder.txt_time_slot_description.setTextColor(context.getResources()
-        .getColor(android.R.color.white));
-        myViewHolder.txt_time_slot.setTextColor(context.getResources().getColor(android.R.color.white));
+            myViewHolder.txt_time_slot_description.setText("Full");
+            myViewHolder.txt_time_slot_description.setTextColor(context.getResources()
+            .getColor(android.R.color.white));
+            myViewHolder.txt_time_slot.setTextColor(context.getResources().getColor(android.R.color.white));
         }
         }
         }
@@ -103,15 +108,22 @@ public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int
                                 cardView.setCardBackgroundColor(context.getResources()
                                         .getColor(android.R.color.white));
                         }
+
                         //our selected card will change color
                         myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources()
                                 .getColor(android.R.color.holo_orange_dark));
 
                         //After that set broadcast to enable button NEXT
-                        Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-                        intent.putExtra(Common.KEY_TIME_SLOT, i);  // put index of time slot slected
-                        intent.putExtra(Common.KEY_STEP, 3);
-                        localBroadcastManager.sendBroadcast(intent);
+//                        Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
+//                        intent.putExtra(Common.KEY_TIME_SLOT, i);  // put index of time slot slected
+//                        intent.putExtra(Common.KEY_STEP, 3);
+//                        localBroadcastManager.sendBroadcast(intent);
+
+                        //==================================================
+                        //Event Bus
+                        EventBus.getDefault().postSticky(new EnableNextButton(3,i));
+
+                        //=================================================
 
 
                     }
