@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shoaib.barbershopapp.Common.Common;
+import com.shoaib.barbershopapp.Fragments.ChoosingSalonForProducts;
 import com.shoaib.barbershopapp.Fragments.HomeFragment;
 import com.shoaib.barbershopapp.Fragments.ShoppingFragment;
 import com.shoaib.barbershopapp.Model.User;
@@ -147,7 +148,7 @@ public class UserHome extends AppCompatActivity {
                 if(menuItem.getItemId() == R.id.action_home)
                     fragment = new HomeFragment();
                 else if(menuItem.getItemId() == R.id.action_Shopping)
-                    fragment =new ShoppingFragment();
+                    fragment =new ChoosingSalonForProducts();
 
                 return loadFragment(fragment);
             }

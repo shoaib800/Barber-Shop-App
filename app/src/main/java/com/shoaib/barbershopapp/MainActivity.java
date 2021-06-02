@@ -55,68 +55,68 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        if(firebaseUser != null) {
-            Dexter.withActivity(this)
-                    .withPermissions(new String[]{
-                            Manifest.permission.READ_CALENDAR,
-                            Manifest.permission.WRITE_CALENDAR
-                    }).withListener(new MultiplePermissionsListener() {
-                @Override
-                public void onPermissionsChecked(MultiplePermissionsReport report) {
-                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-                    if (firebaseUser != null) {
-
-
-
-                        //Get Token
-                        FirebaseInstanceId.getInstance()
-                                .getInstanceId()
-                                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                                        if (task.isSuccessful()) {
-                                            Common.updateToken(getBaseContext(), task.getResult().getToken());
-
-                                            Log.d("Usama's Token", task.getResult().getToken());
-
-                                            Intent intent = new Intent(MainActivity.this, UserHome.class);
-                                            intent.putExtra(Common.IS_LOGIN, true);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                Intent intent = new Intent(MainActivity.this, UserHome.class);
-                                intent.putExtra(Common.IS_LOGIN, true);
-                                startActivity(intent);
-                                finish();
-
-                            }
-                        });
-
-                    } else {
-                        setContentView(R.layout.activity_main);
-                        ButterKnife.bind(MainActivity.this);
-                    }
-                }
-
-                @Override
-                public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-
-                }
-            }).check();
-
-
-        }
+//        if(firebaseUser != null) {
+//            Dexter.withActivity(this)
+//                    .withPermissions(new String[]{
+//                            Manifest.permission.READ_CALENDAR,
+//                            Manifest.permission.WRITE_CALENDAR
+//                    }).withListener(new MultiplePermissionsListener() {
+//                @Override
+//                public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//
+//                    if (firebaseUser != null) {
+//
+//
+//
+//                        //Get Token
+//                        FirebaseInstanceId.getInstance()
+//                                .getInstanceId()
+//                                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                                        if (task.isSuccessful()) {
+//                                            Common.updateToken(getBaseContext(), task.getResult().getToken());
+//
+//                                    Log.d("Usama's Token", task.getResult().getToken());
+//
+//                                            Intent intent = new Intent(MainActivity.this, UserHome.class);
+//                                            intent.putExtra(Common.IS_LOGIN, true);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//                                Intent intent = new Intent(MainActivity.this, UserHome.class);
+//                                intent.putExtra(Common.IS_LOGIN, true);
+//                                startActivity(intent);
+//                                finish();
+//
+//                            }
+//                        });
+//
+//                    } else {
+//                        setContentView(R.layout.activity_main);
+//                        ButterKnife.bind(MainActivity.this);
+//                    }
+//                }
+//
+//                @Override
+//                public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//
+//                }
+//            }).check();
+//
+//
+//        }
 
     }
     private void printKeyHash() {

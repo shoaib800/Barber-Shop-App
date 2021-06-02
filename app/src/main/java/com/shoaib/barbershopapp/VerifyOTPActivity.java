@@ -3,7 +3,9 @@ package com.shoaib.barbershopapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -89,6 +91,12 @@ public class VerifyOTPActivity extends AppCompatActivity {
                                     buttonVerify.setVisibility(View.VISIBLE);
 
                                     if(task.isSuccessful()){
+                                        SharedPreferences sharedPref =
+                                                getSharedPreferences("Userlogin",
+                                                        Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                        editor.putBoolean("islogin", true);
+                                        editor.apply();
                                         Intent intent = new Intent(getApplicationContext(), SetupProfileActivity.class);
                                         startActivity(intent);
                                         finishAffinity();

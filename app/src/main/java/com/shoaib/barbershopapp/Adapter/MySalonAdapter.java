@@ -2,13 +2,20 @@ package com.shoaib.barbershopapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shoaib.barbershopapp.Common.Common;
+import com.shoaib.barbershopapp.Fragments.ChoosingSalonForProducts;
+import com.shoaib.barbershopapp.Fragments.ShoppingFragment;
 import com.shoaib.barbershopapp.Interface.IRecyclerItemSelectedListener;
 import com.shoaib.barbershopapp.Model.EventBus.EnableNextButton;
 import com.shoaib.barbershopapp.Model.Salon;
@@ -28,14 +37,28 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
     Context context;
     List<Salon> salonList;
     List<CardView> cardViewList;
+    Button btn_next_step;
+    Boolean value;
 //    LocalBroadcastManager localBroadcastManager;
 
-    public MySalonAdapter(Context context, List<Salon> salonList) {
+    public MySalonAdapter(Context context, List<Salon> salonList,Button btn_next_step,Boolean value) {
+        this.context = context;
+        this.salonList = salonList;
+        this.btn_next_step = btn_next_step;
+        cardViewList = new ArrayList<>();
+        this.value=value;
+//        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+    }
+    public MySalonAdapter(Context context, List<Salon> salonList,Boolean value) {
         this.context = context;
         this.salonList = salonList;
         cardViewList = new ArrayList<>();
+        this.btn_next_step = btn_next_step;
+        this.value=value;
 //        localBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
+
+
 
     @NonNull
     @Override
@@ -78,6 +101,7 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
             }
         });
 
+
     }
 
     @Override
@@ -109,6 +133,32 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
         @Override
         public void onClick(View view) {
             iRecyclerItemSelectedListener.onItemSelectedListener(view,getAdapterPosition());
+            SharedPreferences sharedPref =
+                    context.getSharedPreferences("SalounId",
+                            Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("salounId",salonList.get(getAdapterPosition()).getSalonId());
+            editor.apply();
+
+            if(value == true){
+
+                btn_next_step.setEnabled(true);
+                btn_next_step.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                        Fragment fragment = new ShoppingFragment();
+                        FragmentManager fragmentManager =((FragmentActivity)context).getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_container, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
+
+
+            }
         }
     }
 
