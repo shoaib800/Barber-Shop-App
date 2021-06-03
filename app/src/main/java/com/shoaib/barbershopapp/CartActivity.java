@@ -45,6 +45,7 @@ public class CartActivity extends AppCompatActivity implements ICartItemLoadList
     void clearCart(){
 
         DatabaseUtils.clearCart((cartDatabase));
+        DatabaseUtils.sumCart(cartDatabase,this);
 
         //Update Adapter
         DatabaseUtils.getAllCart(cartDatabase,this);
@@ -135,6 +136,13 @@ public class CartActivity extends AppCompatActivity implements ICartItemLoadList
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recycler_cart.setLayoutManager(linearLayoutManager);
         recycler_cart.addItemDecoration(new DividerItemDecoration(this, linearLayoutManager.getOrientation()));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DatabaseUtils.sumCart(cartDatabase,this);
+
     }
 
     @Override

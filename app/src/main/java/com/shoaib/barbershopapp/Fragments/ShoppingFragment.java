@@ -1,5 +1,7 @@
 package com.shoaib.barbershopapp.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.shoaib.barbershopapp.Adapter.MyShoppingItemAdapter;
+import com.shoaib.barbershopapp.Common.Common;
 import com.shoaib.barbershopapp.Common.SpacesItemDecoration;
 import com.shoaib.barbershopapp.Interface.IShoppingDataLoadListener;
 import com.shoaib.barbershopapp.Model.ShoppingItem;
@@ -87,9 +90,16 @@ public class ShoppingFragment extends Fragment implements IShoppingDataLoadListe
     RecyclerView recycler_items;
 
     private void loadShoppingItem(String itemMenu) {
-        shoppingItemRef = FirebaseFirestore.getInstance().collection("Shopping")
-                .document(itemMenu)
-                .collection("Items");
+        SharedPreferences sharedPref =
+                getContext().getSharedPreferences("SalounId",
+                        Context.MODE_PRIVATE);
+        String salounId = sharedPref.getString("salounId","");
+        shoppingItemRef = FirebaseFirestore.getInstance().collection("AllSalons")
+                .document(Common.city)
+                .collection("Branch")
+                .document(salounId)
+                .collection("Products").document(itemMenu).collection("Items");
+
         //Get data
         shoppingItemRef.get()
                 .addOnFailureListener(new OnFailureListener() {
