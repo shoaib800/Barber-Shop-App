@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#536DFE</color>
+    <color name="ColorPrimary">#1F4287</color> <!-- Done -->
+    <color name="ColorPrimaryLight">#2A4D93</color> <!-- Done -->
     <color name="colorTextPrimary">#212121</color>
     <color name="colorTextSecondary">#757575</color>
-    <color name="colorHomeHeader">#FFA500</color>
-    <color name="colorPrimaryDark">#536DFE</color>
-    <color name="colorAccent">#F44336</color>
+    <color name="colorHomeHeader">#278ea5</color>   <!-- Done -->
+    <color name="ColorPrimaryDark">#536DFE</color>
+    <!--    <color name="colorAccent">#536DFE</color>-->
     <color name="colorSaveButton">#4CAF50</color>
     <color name="colorButton">#373738</color>
     <color name="homeBackground">#DFDFDF</color>
     <color name="ColorDivider">#BDBDBD</color>
-    <color name="ColorWhite">#FFFFFF</color>
+    <color name="ColorWhite">#FFFFFF</color>  <!-- Done -->
+    <color name="ColorBlack">#000000</color>  <!-- Done -->
     <color name="ColorBackground">#FDF9EE</color>
-
+    <color name="ColorBackgroundSplash">#E6D9B4</color>  <!-- Done -->
+    <color name="ColorChipShoppingSelected">#1E869E</color> <!-- Done -->
+    <color name="ColorChipShoppingStroke">#1E869E</color> <!-- Done -->
+    <color name="ColorCardBackgroundSelected">#94EBCD</color> <!-- Done -->
+    <color name="ColorCardBackgroundAvailable">#94EBCD</color> <!-- Done -->
+    <color name="ColorCardBackgroundFull">#DAE45A50</color> <!-- Done -->
+    <color name="ColorButtonSuccess">#53A653</color> <!-- Done -->
+    <color name="ColorButtonFailure">#C11414</color> <!-- Done -->
+    <color name="ColorReceiptBackground">#E6D9B4</color>
+    <color name="ColorRatingStarsSelected">#53A653</color> <!-- Done -->
 
 </resources>

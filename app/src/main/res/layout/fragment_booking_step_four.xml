@@ -198,7 +198,7 @@
             android:id="@+id/btn_confirm"
             android:text="CONFIRM"
             android:layout_marginTop="8dp"
-            android:background="@color/colorButton"
+            android:backgroundTint="@color/ColorButtonSuccess"
             android:textColor="@android:color/white"
             android:fontFamily="@font/bellerose"
             android:layout_above="@+id/txt_skip"

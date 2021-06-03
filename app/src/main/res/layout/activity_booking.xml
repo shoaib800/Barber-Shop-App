@@ -19,8 +19,8 @@
         app:sv_selectedCircleColor="@color/colorButton"
         app:sv_selectedStepNumberColor="@android:color/white"
         app:sv_selectedTextColor="@color/colorButton"
-        app:sv_doneCircleColor="@color/colorAccent"
-        app:sv_doneStepLineColor="@color/colorAccent"
+        app:sv_doneCircleColor="@color/ColorPrimary"
+        app:sv_doneStepLineColor="@color/ColorPrimaryLight"
         app:sv_doneStepMarkColor="@android:color/white"
         app:sv_doneTextColor="@android:color/white"
         app:sv_typeface="@font/bellerose"/>

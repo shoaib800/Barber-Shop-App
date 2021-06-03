@@ -2,6 +2,7 @@ package com.shoaib.barbershopapp.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -132,13 +133,14 @@ public class ShoppingFragment extends Fragment implements IShoppingDataLoadListe
             Chip chipItem = (Chip)chipGroup.getChildAt(i);
             if (chipItem.getId() != chip.getId()) // if not selected
             {
-                chipItem.setChipBackgroundColorResource(android.R.color.darker_gray);
-                chipItem.setTextColor(getResources().getColor(android.R.color.white));
+                chipItem.setChipBackgroundColorResource(R.color.ColorWhite);
+                chipItem.setTextColor(getResources().getColor(R.color.ColorBlack));
             }
             else //if selected
             {
-                chipItem.setChipBackgroundColorResource(android.R.color.holo_orange_dark);
-                chipItem.setTextColor(getResources().getColor(android.R.color.black));
+                chipItem.setChipBackgroundColorResource(R.color.ColorChipShoppingSelected);
+                chipItem.setTextColor(getResources().getColor(R.color.ColorWhite));
+                chipItem.setChipStrokeColor(ColorStateList.valueOf(getResources().getColor(R.color.ColorChipShoppingSelected)));
             }
         }
     }

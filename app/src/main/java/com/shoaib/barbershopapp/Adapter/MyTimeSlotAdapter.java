@@ -80,8 +80,7 @@ public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
             //so base on tag, we can set all remain card background without changing full time slut.
             myViewHolder.card_time_slot.setEnabled(false);
             myViewHolder.card_time_slot.setTag(Common.DISABLE_TAG);
-            myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
-
+            myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(R.color.ColorCardBackgroundFull));
             myViewHolder.txt_time_slot_description.setText("Full");
             myViewHolder.txt_time_slot_description.setTextColor(context.getResources()
             .getColor(android.R.color.white));
@@ -110,8 +109,7 @@ public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
                         }
 
                         //our selected card will change color
-                        myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources()
-                                .getColor(android.R.color.holo_orange_dark));
+                        myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(R.color.ColorCardBackgroundAvailable));
 
                         //After that set broadcast to enable button NEXT
 //                        Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);

@@ -139,8 +139,8 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
         //show dialog confirm
         androidx.appcompat.app.AlertDialog.Builder confirmDialog = new androidx.appcompat.app.AlertDialog.Builder(getActivity())
                 .setCancelable(false)
-                .setTitle("Hey!")
-                .setMessage("Do you really want to change booking information?\nBecause we will delete your old booking information\nJust confirm")
+                .setTitle("Alert !!")
+                .setMessage("Do you really want to CHANGE the booking information?\nIf yes , your last booking would be DELETED \nJust confirm !")
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
     }
 
     private void deleteBookingFromBarber(final boolean isChange)  {
-        /* To delet booking first, we need delete from barber collection
+        /* To delete booking first, we need delete from barber collection
          * After that we will delete from user booking collection
          * And final , delete event */
 
@@ -226,7 +226,7 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
                         if(eventUri!=null)
                             getActivity().getContentResolver().delete(eventUri, null, null);
                     }
-                    Toast.makeText(getActivity(), "Success deleting Booking !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "You Successfully deleted Booking !", Toast.LENGTH_SHORT).show();
 
 
                     //Refresh
@@ -352,7 +352,7 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
         //We will make realtime listener here
         if(userBookingEvent != null) //If UserBookingEvent already init
         {
-            if(userBookingListener == null) //Only, if UserBoookingListner == null
+            if(userBookingListener == null) //Only, if UserBookingListener == null
             {
                 //That mean we just add 1 time
                 userBookingListener =  userBooking

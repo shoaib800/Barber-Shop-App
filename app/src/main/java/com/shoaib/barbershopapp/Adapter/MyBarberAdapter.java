@@ -70,7 +70,7 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
                 //Set background for choice
                 myViewHolder.card_barber.setCardBackgroundColor(
                         context.getResources()
-                                .getColor(android.R.color.holo_orange_dark)
+                                .getColor(R.color.ColorCardBackgroundSelected)
                 );
 
                 //Send local broadcast to enable button next

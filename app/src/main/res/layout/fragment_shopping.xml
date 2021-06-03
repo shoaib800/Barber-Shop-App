@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="8dp"
-    android:orientation="vertical"
+    android:gravity="center_horizontal"
     android:background="@color/ColorBackground"
-    tools:context=".Fragments.ShoppingFragment">
+    tools:context=".Fragments.ShoppingFragment"
+    android:orientation="vertical">
 
     <View
         android:background="@android:color/background_dark"
@@ -26,43 +27,51 @@
         android:id="@+id/chip_group"
         android:paddingTop="10dp"
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_wax"
-            app:chipBackgroundColor="@android:color/holo_orange_dark"
-            android:textColor="@android:color/black"
             android:text="Wax"
+            app:chipBackgroundColor="@color/ColorChipShoppingSelected"
+            android:textColor="@android:color/black"
             style="@style/Widget.MaterialComponents.Chip.Choice"
+            app:chipStrokeColor="@color/ColorChipShoppingStroke"
+            app:chipStrokeWidth="1.5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_spray"
-            app:chipBackgroundColor="@android:color/darker_gray"
-            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/ColorWhite"
+            android:textColor="@color/ColorBlack"
             android:text="Spray"
             style="@style/Widget.MaterialComponents.Chip.Choice"
+            app:chipStrokeColor="@color/ColorChipShoppingStroke"
+            app:chipStrokeWidth="1.5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_hair_care"
-            app:chipBackgroundColor="@android:color/darker_gray"
-            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/ColorWhite"
+            android:textColor="@color/ColorBlack"
             android:text="Hair Care"
             style="@style/Widget.MaterialComponents.Chip.Choice"
+            app:chipStrokeColor="@color/ColorChipShoppingStroke"
+            app:chipStrokeWidth="1.5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_body_care"
-            app:chipBackgroundColor="@android:color/darker_gray"
-            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/ColorWhite"
+            android:textColor="@color/ColorBlack"
             android:text="Body Care"
             style="@style/Widget.MaterialComponents.Chip.Choice"
+            app:chipStrokeColor="@color/ColorChipShoppingStroke"
+            app:chipStrokeWidth="1.5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
