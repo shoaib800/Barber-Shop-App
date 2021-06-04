@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:text="RATING OUR BARBER"
+        android:text="RATE YOUR LAST VISIT"
         android:textSize="26sp"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/bellerose"

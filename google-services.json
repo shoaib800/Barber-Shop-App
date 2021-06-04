@@ -8,35 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:281545360796:android:9a6aa7115608c868367459",
-        "android_client_info": {
-          "package_name": "com.shoaib.barberstaffapp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "281545360796-suo03ngrrs867la51k1g1vra74o97pot.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDBYGc2XI9MCvAQ9BZ8Q_xDPnKm-4RqkIY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "281545360796-suo03ngrrs867la51k1g1vra74o97pot.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:281545360796:android:010beab7c24c42ab367459",
         "android_client_info": {
           "package_name": "com.shoaib.barbershopapp"
@@ -44,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "281545360796-7g013b9o002lcaads1sesl0nushnmrcj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shoaib.barbershopapp",
+            "certificate_hash": "4bfc08d43b3437ce776e2f295d37678256ca5eb6"
+          }
+        },
+        {
+          "client_id": "281545360796-f0ldf2o5f8lgvg7cudllkr2klc77cv2u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shoaib.barbershopapp",
+            "certificate_hash": "e45cf69f9fedfef3c32311e960aed9d0bbe897ea"
+          }
+        },
+        {
+          "client_id": "281545360796-i2b95rb8v81s1erbn3i9lddn290467f6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shoaib.barbershopapp",
+            "certificate_hash": "d99bd2af38454c25b8648daba0ee639d5d620e36"
+          }
+        },
+        {
           "client_id": "281545360796-suo03ngrrs867la51k1g1vra74o97pot.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -66,18 +61,26 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:281545360796:android:c0116e2e73f18b3a367459",
+        "mobilesdk_app_id": "1:281545360796:android:54482486c9097699367459",
         "android_client_info": {
-          "package_name": "shoaib.dev.barbershopapp"
+          "package_name": "com.shoaib.barberstaffapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "281545360796-icraovp735vjlhtc4l8gu155822kos2k.apps.googleusercontent.com",
+          "client_id": "281545360796-03ikjiod4qprq3eb32cpflkrbuivuu8a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "shoaib.dev.barbershopapp",
+            "package_name": "com.shoaib.barberstaffapp",
             "certificate_hash": "4bfc08d43b3437ce776e2f295d37678256ca5eb6"
+          }
+        },
+        {
+          "client_id": "281545360796-ggce75eafbi70g4j0fi4rtj2ao1gau72.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shoaib.barberstaffapp",
+            "certificate_hash": "e45cf69f9fedfef3c32311e960aed9d0bbe897ea"
           }
         },
         {
