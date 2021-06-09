@@ -1,8 +1,10 @@
 package com.shoaib.barbershopapp.Fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +48,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.nex3z.notificationbadge.NotificationBadge;
 import com.shoaib.barbershopapp.HistoryActivity;
+import com.shoaib.barbershopapp.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -85,15 +89,16 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
     private Unbinder unbinder;
     CartDatabase cartDatabase;
     AlertDialog dialog;
-
     @BindView(R.id.notification_badge)
     NotificationBadge notificationBadge;
 
     @BindView(R.id.layout_user_information)
-    LinearLayout layout_user_information;
+    RelativeLayout layout_user_information;
 
     @BindView(R.id.txt_user_name)
     TextView txt_user_name;
+    @BindView(R.id.logout_layout)
+    LinearLayout logout_layout;
 
     @BindView(R.id.txt_phone)
     TextView txt_phone;
@@ -128,10 +133,12 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
         changeBookingFromUser();
     }
 
+
+
     private void changeBookingFromUser() {
         //show dialog confirm
         androidx.appcompat.app.AlertDialog.Builder confirmDialog = new androidx.appcompat.app.AlertDialog.Builder(getActivity())
-                .setCancelable(false)
+                .setCancelable(true)
                 .setTitle("Hey!")
                 .setMessage("Do you really want to change booking information?\nBecause we will delete your old booking information\nJust confirm")
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -402,7 +409,40 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
         iBookingInformationChangeListener = this;
 
         //Check is logged ?
+        logout_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+
+                androidx.appcompat.app.AlertDialog.Builder confirmDialog = new androidx.appcompat.app.AlertDialog.Builder(getActivity())
+                        .setCancelable(false)
+                        .setTitle("Hey!")
+                        .setMessage("Do you really want to Logout?\nJust confirm")
+                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                dialogInterface.dismiss();
+                            }
+                        }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPref =
+                                        getContext().getSharedPreferences("Userlogin",
+                                                Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putBoolean("islogin", false);
+                                editor.apply();
+                                startActivity(new Intent(getContext(), MainActivity.class));
+                                getActivity().finish();
+                            }
+                        });
+                confirmDialog.show();
+
+
+
+            }
+        });
 
         if(firebaseUser != null) {
 

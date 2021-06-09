@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".BookingActivity">
 
+
     <com.shuhart.stepview.StepView
         android:id="@+id/step_view"
         android:layout_width="match_parent"
