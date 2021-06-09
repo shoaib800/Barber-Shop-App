@@ -160,7 +160,7 @@ public class CartActivity extends AppCompatActivity implements ICartItemLoadList
 
     @Override
     public void onSumCartSuccess(Long value) {
-        txt_total_price.setText(new StringBuilder("$").append(value));
+        txt_total_price.setText(new StringBuilder("Rs. ").append(value));
     }
 
     @Override

@@ -51,7 +51,7 @@ public class MyShoppingItemAdapter extends RecyclerView.Adapter<MyShoppingItemAd
 
         Picasso.get().load(shoppingItemList.get(i).getImage()).into(myViewHolder.img_shopping_item);
         myViewHolder.txt_shopping_item_name.setText(Common.formatShoppingItemName(shoppingItemList.get(i).getName()));
-        myViewHolder.txt_shopping_item_price.setText(new StringBuilder("$").append(shoppingItemList.get(i).getPrice()));
+        myViewHolder.txt_shopping_item_price.setText(new StringBuilder("Rs. ").append(shoppingItemList.get(i).getPrice()));
 
         //Add to cart
         myViewHolder.setiRecyclerItemSelectedListener(new IRecyclerItemSelectedListener() {
