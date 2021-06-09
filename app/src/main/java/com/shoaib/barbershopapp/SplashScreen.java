@@ -2,10 +2,13 @@ package com.shoaib.barbershopapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.content.Intent;
 import android.os.Handler;
@@ -52,6 +55,8 @@ public class SplashScreen extends AppCompatActivity {
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
 
 
+
+
         //Hooks
         image = findViewById(R.id.imageView10);
 
@@ -92,8 +97,9 @@ public class SplashScreen extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<InstanceIdResult> task) {
                                                     if (task.isSuccessful()) {
                                                         Common.updateToken(getBaseContext(), task.getResult().getToken());
+//                                                        Toast.makeText(SplashScreen.this, ""+task.getResult().getToken(), Toast.LENGTH_SHORT).show();
 
-                                                        Log.d("Usama's Token", task.getResult().getToken());
+                                                        Log.d("Customers' Token", task.getResult().getToken());
 
                                                         Intent intent = new Intent(SplashScreen.this, UserHome.class);
                                                         intent.putExtra(Common.IS_LOGIN, true);

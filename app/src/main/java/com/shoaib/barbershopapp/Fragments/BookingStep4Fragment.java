@@ -186,8 +186,6 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
 
-
-
                                                                 //First, Get Token base on Barber Id
                                                                 FirebaseFirestore.getInstance()
                                                                         .collection("Tokens")
@@ -219,7 +217,7 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
                                                                                                 @Override
                                                                                                 public void accept(FCMResponse fcmResponse) throws Exception {
                                                                                                     if(dialog.isShowing())
-                                                                                                        dialog.dismiss();
+                                                                                                    {dialog.dismiss();}
 
                                                                                                     addToCalender(Common.bookingDate, Common.convertTimeSlotToString(Common.currentTimeSlot));
 
@@ -267,11 +265,21 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
                                 Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    });
+
+
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(),"failurework---"+e,Toast.LENGTH_SHORT).show();
+                }
+            });
 
     }
 
     private void addToCalender(Calendar bookingDate, String startDate) {
+
+        //Log.d("xxxxxx>",bookingDate+"========"+startDate);
 
             String startTime = Common.convertTimeSlotToString(Common.currentTimeSlot);
             String[] convertTime = startTime.split("-"); // Split ex : 9:00 - 10:00
@@ -316,10 +324,17 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
         SimpleDateFormat calenderDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         try {
+
             Date start = calenderDateFormat.parse(startEventTime);
             Date end = calenderDateFormat.parse(endEventTime);
 
             ContentValues event = new ContentValues();
+Log.d("zzzzzzzzzz",CalendarContract.Events.CALENDAR_ID);
+Log.d("zzzzzzzzzz",CalendarContract.Events.TITLE+"+=="+title);
+Log.d("zzzzzzzzzz",CalendarContract.Events.DESCRIPTION+"+=="+description);
+Log.d("zzzzzzzzzz",CalendarContract.Events.EVENT_LOCATION+"+=="+location);
+Log.d("zzzzzzzzzz",CalendarContract.Events.DTSTART+"+=="+start.getTime());
+Log.d("zzzzzzzzzz",CalendarContract.Events.DTEND+"+=="+end.getTime());
 
             //Put
             event.put(CalendarContract.Events.CALENDAR_ID,getCalender(getContext()));
@@ -334,15 +349,15 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
             event.put(CalendarContract.Events.HAS_ALARM,1);
 
             String timeZone = TimeZone.getDefault().getID();
-            event.put(CalendarContract.Events.EVENT_TIMEZONE,timeZone);
+            event.put(CalendarContract.Events.EVENT_TIMEZONE,"UTC/GMT +2:00");
 
             Uri calendars;
-            if (Build.VERSION.SDK_INT >= 0)
+            if (Build.VERSION.SDK_INT >= 8)
 
                 calendars= Uri.parse("content://com.android.calendar/events");
             else
                 calendars= Uri.parse("content://calendar/events");
-
+//            Toast.makeText(getContext(),"try works"+calendars,Toast.LENGTH_SHORT).show();
             Uri uri_save = getActivity().getContentResolver().insert(calendars,event);
             //Save to cache
             Paper.init(getActivity());
@@ -350,6 +365,7 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
 
 
         } catch (ParseException e) {
+//            Toast.makeText(getContext(),"Catch works",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 

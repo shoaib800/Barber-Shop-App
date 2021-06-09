@@ -138,7 +138,7 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
     private void changeBookingFromUser() {
         //show dialog confirm
         androidx.appcompat.app.AlertDialog.Builder confirmDialog = new androidx.appcompat.app.AlertDialog.Builder(getActivity())
-                .setCancelable(false)
+                .setCancelable(true)
                 .setTitle("Hey!")
                 .setMessage("Do you really want to change booking information?\nBecause we will delete your old booking information\nJust confirm")
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -413,12 +413,7 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
             @Override
             public void onClick(View v) {
 
-                SharedPreferences sharedPref =
-                        getContext().getSharedPreferences("Userlogin",
-                                Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putBoolean("islogin", false);
-                editor.apply();
+
 
                 androidx.appcompat.app.AlertDialog.Builder confirmDialog = new androidx.appcompat.app.AlertDialog.Builder(getActivity())
                         .setCancelable(false)
@@ -432,6 +427,12 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
                         }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPref =
+                                        getContext().getSharedPreferences("Userlogin",
+                                                Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putBoolean("islogin", false);
+                                editor.apply();
                                 startActivity(new Intent(getContext(), MainActivity.class));
                                 getActivity().finish();
                             }
