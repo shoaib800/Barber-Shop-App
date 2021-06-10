@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#536DFE</color>
+<!--    <color name="colorPrimary">#536DFE</color>-->
+    <color name="ColorPrimary">#1F4287</color>
     <color name="colorTextPrimary">#212121</color>
     <color name="colorTextSecondary">#757575</color>
     <color name="colorHomeHeader">#FFA500</color>

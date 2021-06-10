@@ -22,7 +22,7 @@
         <TextView
             android:text="Thank You for booking our service !"
             android:textAllCaps="true"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:fontFamily="@font/bellerose"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
@@ -32,6 +32,7 @@
         <TextView
             android:text="Booking information"
             android:textAllCaps="true"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/bellerose"
             android:textStyle="bold"
             android:layout_width="wrap_content"
@@ -91,6 +92,7 @@
 
         <TextView
             android:id="@+id/txt_salon_name"
+            android:layout_marginTop="8dp"
             android:text="Salon #1"
             android:textAllCaps="true"
             android:fontFamily="@font/bellerose"
@@ -193,6 +195,38 @@
 
 
         </LinearLayout>
+
+        <View
+            android:layout_marginTop="4dp"
+            android:background="@android:color/background_dark"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/ic_baseline_add_shopping_cart_24"
+                android:layout_gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/product_booking_note"
+                android:text="Add products into cart before Booking. (If any)"
+                android:textSize="14sp"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/bellerose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btn_confirm"

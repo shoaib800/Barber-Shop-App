@@ -14,7 +14,7 @@
         android:visibility="visible"
         android:weightSum="4"
         android:padding="15dp"
-        android:background="@color/colorHomeHeader"
+        android:background="@color/ColorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 

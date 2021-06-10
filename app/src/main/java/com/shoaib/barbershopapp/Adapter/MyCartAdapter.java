@@ -47,7 +47,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyViewHold
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         Picasso.get().load(cartItemList.get(i).getProductImage()).into(myViewHolder.img_product);
         myViewHolder.txt_cart_name.setText(new StringBuilder(cartItemList.get(i).getProductName()));
-        myViewHolder.txt_cart_price.setText(new StringBuilder("$").append(cartItemList.get(i).getProductPrice()));
+        myViewHolder.txt_cart_price.setText(new StringBuilder("Rs. ").append(cartItemList.get(i).getProductPrice()));
         myViewHolder.txt_quantity.setText(new StringBuilder(String.valueOf(cartItemList.get(i).getProductQuantity())));
 
         //Event
