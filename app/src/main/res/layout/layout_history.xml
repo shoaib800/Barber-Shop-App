@@ -14,7 +14,7 @@
             android:id="@+id/txt_booking_date"
             android:text="01/01/2019"
             android:textColor="@android:color/white"
-            android:background="@color/colorHomeHeader"
+            android:background="@drawable/header_background"
             android:fontFamily="@font/bellerose"
             android:paddingLeft="10dp"
             android:layout_width="match_parent"
