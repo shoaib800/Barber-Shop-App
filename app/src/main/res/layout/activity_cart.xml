@@ -22,7 +22,7 @@
         android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:background="@color/ColorPrimary"
+        android:background="@drawable/menu_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -39,8 +39,9 @@
         <Button
             android:id="@+id/btn_clear_cart"
             android:text="CLEAR"
+            android:textColor="@color/ColorPrimary"
             android:layout_alignParentRight="true"
-            android:backgroundTint="@color/colorHomeHeader"
+            android:backgroundTint="@color/ColorBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

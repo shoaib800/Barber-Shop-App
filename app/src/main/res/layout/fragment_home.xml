@@ -14,7 +14,7 @@
         android:visibility="visible"
         android:weightSum="4"
         android:padding="15dp"
-        android:background="@color/ColorPrimary"
+        android:background="@drawable/header_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -39,7 +39,7 @@
                 android:id="@+id/txt_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text=""
+                android:text="Username"
                 android:fontFamily="@font/bellerose"
                 android:textColor="@color/ColorBackground"
                 android:textSize="30sp" />
@@ -48,7 +48,7 @@
                 android:id="@+id/txt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text=""
+                android:text="Contact Number"
                 android:fontFamily="@font/bellerose"
                 android:textColor="@color/ColorBackground"
                 android:textSize="20sp" />
