@@ -62,7 +62,7 @@ public class DatabaseUtils {
 
     /*
     =====================================================================================
-    ASYNC TASK DEIFNE
+    ASYNC TASK DEFINE
     =====================================================================================
      */
 
@@ -149,8 +149,6 @@ public class DatabaseUtils {
                 db.cartDAO().insert(cartItem);
             }catch (SQLiteConstraintException exception)
             {
-
-
                 CartItem updateCartItem = db.cartDAO().getProductInCart(cartItem.getProductId(),
                         firebaseAuth.getCurrentUser().getPhoneNumber());
                 updateCartItem.setProductQuantity(updateCartItem.getProductQuantity()+1);

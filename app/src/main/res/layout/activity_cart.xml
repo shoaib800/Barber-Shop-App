@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/txt_total_price"
-            android:text="$0"
+            android:text="Rs. 0"
             android:layout_centerVertical="true"
             android:textSize="30sp"
             android:textStyle="bold"

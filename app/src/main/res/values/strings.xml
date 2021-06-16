@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BarberShopApp</string>
     <string name="otp_verification">OTP Verification</string>
-    <string name="we_will_send_you_an_one_time_password_on_this_mobile_number">We will send you an One Time Password on this mobile number</string>
+    <string name="we_will_send_you_an_one_time_password_on_this_mobile_number">We will send you an One Time Password (OTP) on this mobile number</string>
     <string name="enter_mobile_number">Enter Mobile Number</string>
     <string name="_92">+92-</string>
     <string name="_3001234567">3001234567</string>
@@ -21,4 +21,5 @@
     <string name="bullet">\u2022</string>
     <string name="login_to_continue">Login to Continue</string>
     <string name="shopping_note">Note : Youu can only book products online. Purchasing will be physically from Shop.</string>
+    <string name="_previous">Previous</string>
 </resources>

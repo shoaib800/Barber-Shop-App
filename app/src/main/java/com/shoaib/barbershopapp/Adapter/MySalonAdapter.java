@@ -39,7 +39,6 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
     List<CardView> cardViewList;
     Button btn_next_step;
     Boolean value;
-//    LocalBroadcastManager localBroadcastManager;
 
     public MySalonAdapter(Context context, List<Salon> salonList,Button btn_next_step,Boolean value) {
         this.context = context;
@@ -47,7 +46,6 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
         this.btn_next_step = btn_next_step;
         cardViewList = new ArrayList<>();
         this.value=value;
-//        localBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
     public MySalonAdapter(Context context, List<Salon> salonList,Boolean value) {
         this.context = context;
@@ -55,10 +53,7 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
         cardViewList = new ArrayList<>();
         this.btn_next_step = btn_next_step;
         this.value=value;
-//        localBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
-
-
 
     @NonNull
     @Override
@@ -86,21 +81,13 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
                 myViewHolder.card_salon.setCardBackgroundColor(context.getResources()
                         .getColor(android.R.color.holo_orange_light));
 
-                //Send broadcasting to tell booking activity enable button next
-//                Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-//                intent.putExtra(Common.KEY_SALON_STORE, salonList.get(pos));
-//                intent.putExtra(Common.KEY_STEP, 1);
-//                localBroadcastManager.sendBroadcast(intent);
-
                 //==================================================
                 //Event Bus
                 EventBus.getDefault().postSticky(new EnableNextButton(1,salonList.get(pos)));
-
                 //=================================================
 
             }
         });
-
 
     }
 
@@ -146,7 +133,6 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
                 btn_next_step.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
 
                         Fragment fragment = new ShoppingFragment();
                         FragmentManager fragmentManager =((FragmentActivity)context).getSupportFragmentManager();

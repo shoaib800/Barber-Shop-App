@@ -226,7 +226,7 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
                         if(eventUri!=null)
                             getActivity().getContentResolver().delete(eventUri, null, null);
                     }
-                    Toast.makeText(getActivity(), "Success deleting Booking !", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "Success deleting Booking !", Toast.LENGTH_SHORT).show();
 
 
                     //Refresh

@@ -2,6 +2,8 @@ package com.shoaib.barbershopapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
@@ -44,6 +46,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.READ_CALENDAR }, 101);
+        }
+        else {
+//            Toast.makeText(UserHome.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+        }
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.WRITE_CALENDAR }, 101);
+        }
+        else {
+//            Toast.makeText(UserHome.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+        }
+
         Button btnLogin = findViewById(R.id.btn_login);
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
@@ -54,69 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-
-//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-//        if(firebaseUser != null) {
-//            Dexter.withActivity(this)
-//                    .withPermissions(new String[]{
-//                            Manifest.permission.READ_CALENDAR,
-//                            Manifest.permission.WRITE_CALENDAR
-//                    }).withListener(new MultiplePermissionsListener() {
-//                @Override
-//                public void onPermissionsChecked(MultiplePermissionsReport report) {
-//                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-//
-//                    if (firebaseUser != null) {
-//
-//
-//
-//                        //Get Token
-//                        FirebaseInstanceId.getInstance()
-//                                .getInstanceId()
-//                                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                                        if (task.isSuccessful()) {
-//                                            Common.updateToken(getBaseContext(), task.getResult().getToken());
-//
-//                                    Log.d("Usama's Token", task.getResult().getToken());
-//
-//                                            Intent intent = new Intent(MainActivity.this, UserHome.class);
-//                                            intent.putExtra(Common.IS_LOGIN, true);
-//                                            startActivity(intent);
-//                                            finish();
-//                                        }
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//
-//                                Intent intent = new Intent(MainActivity.this, UserHome.class);
-//                                intent.putExtra(Common.IS_LOGIN, true);
-//                                startActivity(intent);
-//                                finish();
-//
-//                            }
-//                        });
-//
-//                    } else {
-//                        setContentView(R.layout.activity_main);
-//                        ButterKnife.bind(MainActivity.this);
-//                    }
-//                }
-//
-//                @Override
-//                public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-//
-//                }
-//            }).check();
-//
-//
-//        }
 
     }
     private void printKeyHash() {

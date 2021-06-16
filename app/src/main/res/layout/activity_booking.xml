@@ -43,7 +43,7 @@
 
         <Button
             android:id="@+id/btn_previous_step"
-            android:text="Previous"
+            android:text="@string/_previous"
             android:enabled="false"
             android:fontFamily="@font/bellerose"
             android:layout_centerHorizontal="true"

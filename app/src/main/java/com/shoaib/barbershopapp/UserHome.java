@@ -87,10 +87,6 @@ public class UserHome extends AppCompatActivity {
 
         ButterKnife.bind(UserHome.this);
 
-//        Intent intent = new Intent(UserHome.this, UserHome.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-//        startActivity(intent);
-
         //Check intent, if Is login = true, enable full access
         //If is login  = false, let user just around shopping to view
         if (ContextCompat.checkSelfPermission(UserHome.this, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_DENIED) {
@@ -141,8 +137,6 @@ public class UserHome extends AppCompatActivity {
                                         Common.currentUser = userSnapShot.toObject(User.class);
                                         bottomNavigationView.setSelectedItemId(R.id.action_home);
                                     }
-
-
 
                                     if(dialog.isShowing())
                                         dialog.dismiss();

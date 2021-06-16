@@ -66,19 +66,9 @@ public class MyShoppingItemAdapter extends RecyclerView.Adapter<MyShoppingItemAd
                 cartItem.setProductPrice(shoppingItemList.get(pos).getPrice());
                 cartItem.setUserPhone(firebaseAuth.getCurrentUser().getPhoneNumber());
 
-
-
                 //Insert To Database
                 DatabaseUtils.insertToCart(cartDatabase, cartItem);
                 Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show();
-//                compositeDisposable.add(cartDataSource.insert(cartItem)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(
-//                                ()-> Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show(),
-//                                throwable -> Toast.makeText(context, ""+throwable.getMessage(), Toast.LENGTH_SHORT).show()
-//                        ));
-
             }
         });
     }
@@ -93,8 +83,6 @@ public class MyShoppingItemAdapter extends RecyclerView.Adapter<MyShoppingItemAd
         ImageView img_shopping_item;
 
         IRecyclerItemSelectedListener iRecyclerItemSelectedListener;
-
-
 
         public void setiRecyclerItemSelectedListener(IRecyclerItemSelectedListener iRecyclerItemSelectedListener) {
             this.iRecyclerItemSelectedListener = iRecyclerItemSelectedListener;

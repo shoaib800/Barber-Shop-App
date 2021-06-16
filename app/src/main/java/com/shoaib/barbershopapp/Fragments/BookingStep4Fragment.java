@@ -87,12 +87,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class BookingStep4Fragment extends Fragment implements ICartItemLoadListener {
 
-//    CartDataSource cartDataSource;
-
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     SimpleDateFormat simpleDateFormat;
-//    LocalBroadcastManager localBroadcastManager;
     Unbinder unbinder;
     IFCMApi ifcmApi;
 
@@ -129,12 +126,10 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
 
         DatabaseUtils.getAllCart(CartDatabase.getInstance(getContext()), this);
 
-
-
         }
 
     private void addToUserBooking(BookingInformation bookingInformation) {
-            // First create new collection
+            // First create we new collection
             final CollectionReference userBooking = FirebaseFirestore.getInstance()
                     .collection("User")
                     .document(firebaseAuth.getCurrentUser().getPhoneNumber())
@@ -223,7 +218,7 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
 
                                                                                                     resetStaticData();
                                                                                                     getActivity().finish(); //Close Activity
-                                                                                                    Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+                                                                                                    Toast.makeText(getContext(), "Booking Done!", Toast.LENGTH_SHORT).show();
                                                                                                 }
                                                                                             }, new Consumer<Throwable>() {
                                                                                                 @Override
@@ -234,7 +229,7 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
 
                                                                                                     resetStaticData();
                                                                                                     getActivity().finish(); //Close Activity
-                                                                                                    Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+                                                                                                    Toast.makeText(getContext(), "Booking Done!", Toast.LENGTH_SHORT).show();
 
                                                                                                 }
                                                                                             }));
@@ -262,7 +257,7 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
 
                                 resetStaticData();
                                 getActivity().finish(); // Close Activity
-                                Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Booking Done!", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -271,7 +266,7 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(),"failurework---"+e,Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(getContext(),"failurework---"+e,Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -302,7 +297,7 @@ public class BookingStep4Fragment extends Fragment implements ICartItemLoadListe
             endEvent.set(Calendar.HOUR_OF_DAY, endHourInt); //Set event end hr
             endEvent.set(Calendar.MINUTE, endMinInt); //Set event end min
 
-            //after we have starEvent and endEvent , convert it format string
+            //after we have startEvent and endEvent , convert it format string
             SimpleDateFormat calenderDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             String startEventTime = calenderDateFormat.format(startEvent.getTime());
             String endEventTime = calenderDateFormat.format(endEvent.getTime());
@@ -408,13 +403,6 @@ Log.d("zzzzzzzzzz",CalendarContract.Events.DTEND+"+=="+end.getTime());
         Common.bookingDate.add(Calendar.DATE, 0); // current Date added
     }
 
-//    BroadcastReceiver confirmBookingReceiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            setData();
-//        }
-//    };
-
     //================================================================
     //EVENT BUS START
 
@@ -470,9 +458,6 @@ Log.d("zzzzzzzzzz",CalendarContract.Events.DTEND+"+=="+end.getTime());
         txt_salon_open_hours.setText(Common.currentSalon.getOpenHours());
     }
 
-
-
-
     static BookingStep4Fragment instance;
 
     public static BookingStep4Fragment getInstance()
@@ -491,16 +476,12 @@ Log.d("zzzzzzzzzz",CalendarContract.Events.DTEND+"+=="+end.getTime());
         // Apply format for date display
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-//        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-//        localBroadcastManager.registerReceiver(confirmBookingReceiver, new IntentFilter(Common.KEY_CONFIRM_BOOKING));
-
         dialog = new SpotsDialog.Builder().setContext(getContext()).setCancelable(false)
                 .build();
     }
 
     @Override
     public void onDestroy() {
-//        localBroadcastManager.unregisterReceiver(confirmBookingReceiver);
         compositeDisposable.clear();
         super.onDestroy();
     }

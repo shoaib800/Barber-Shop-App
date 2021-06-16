@@ -98,16 +98,10 @@ public class BookingActivity extends AppCompatActivity {
     }
 
     private void confirmBooking() {
-//        //Send broadcast to fragment step 4
-//        Intent intent = new Intent(Common.KEY_CONFIRM_BOOKING);
-//        localBroadcastManager.sendBroadcast(intent);
         EventBus.getDefault().postSticky(new ConfirmBookingEvent(true));
     }
 
     private void loadTimeSlotOfBarber(String barberId) {
-        //Send Local Broadcast to Fragment Step 3
-//        Intent intent = new Intent(Common.KEY_DISPLAY_TIME_SLOT);
-//        localBroadcastManager.sendBroadcast(intent);
 
         EventBus.getDefault().postSticky(new DisplayTimeSlotEvent(true));
     }
@@ -139,10 +133,6 @@ public class BookingActivity extends AppCompatActivity {
 
                                     barbers.add(barber);
                                 }
-                                // Send broadcast to bookingStep2Fragment to load Recycler
-//                                Intent intent = new Intent(Common.KEY_BARBER_LOAD_DONE);
-//                                intent.putParcelableArrayListExtra(Common.KEY_BARBER_LOAD_DONE, barbers);
-//                                localBroadcastManager.sendBroadcast(intent);
                                 EventBus.getDefault().postSticky(new BarberDoneEvent(barbers));
 
                                 dialog.dismiss();

@@ -71,10 +71,6 @@ public class MyHistoryAdapter extends RecyclerView.Adapter<MyHistoryAdapter.MyVi
         @BindView(R.id.txt_booking_date)
         TextView txt_booking_date;
 
-
-
-
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 

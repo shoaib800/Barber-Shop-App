@@ -77,7 +77,7 @@ public class Common {
     public static Barber currentBarber;
     public static int currentTimeSlot = -1;
     public static Calendar bookingDate = Calendar.getInstance();
-    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy"); //Only use when need format key
+    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy"); //Only used when need format key
     public static String currentBookingId = "";
     public static BookingInformation currentBooking;
 
@@ -173,7 +173,6 @@ public class Common {
         {
             builder.setContentIntent(pendingIntent);
 
-
         }
         Notification notification = builder.build();
 
@@ -205,7 +204,6 @@ public class Common {
                 {
                     Barber barberRate = task.getResult().toObject(Barber.class);
                     barberRate.setBarberId(task.getResult().getId());
-
 
                     //Create View for Dialog
                     View view = LayoutInflater.from(context)
@@ -278,12 +276,10 @@ public class Common {
                     AlertDialog dialog = builder.create();
                     dialog.show();
 
-
                 }
             }
         });
     }
-
 
     public enum TOKEN_TYPE{
         CLIENT,
@@ -292,7 +288,6 @@ public class Common {
     }
 
     public static void updateToken(Context context, String token) {
-
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -315,8 +310,6 @@ public class Common {
 
                         }
                     });
-
-
 
         } else{
             Paper.init(context);

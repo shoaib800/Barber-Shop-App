@@ -29,19 +29,16 @@ public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.My
         Context context;
         List<TimeSlot> timeSlotList;
         List<CardView> cardViewList;
-//        LocalBroadcastManager localBroadcastManager;
 
 public MyTimeSlotAdapter(Context context) {
         this.context = context;
         this.timeSlotList = new ArrayList<>();
-//        this.localBroadcastManager = LocalBroadcastManager.getInstance(context);
         cardViewList = new ArrayList<>();
         }
 
 public MyTimeSlotAdapter(Context context, List<TimeSlot> timeSlotList) {
         this.context = context;
         this.timeSlotList = timeSlotList;
-//        this.localBroadcastManager = LocalBroadcastManager.getInstance(context);
         cardViewList = new ArrayList<>();
         }
 
@@ -77,7 +74,7 @@ public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
         if (slot == i)// if slot == position
         {
             //we will set tag for all time slot full
-            //so base on tag, we can set all remain card background without changing full time slut.
+            //so base on tag, we can set all remain card background without changing full time slot.
             myViewHolder.card_time_slot.setEnabled(false);
             myViewHolder.card_time_slot.setTag(Common.DISABLE_TAG);
             myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_red_light));
@@ -113,18 +110,11 @@ public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
                         myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources()
                                 .getColor(android.R.color.holo_orange_light));
 
-                        //After that set broadcast to enable button NEXT
-//                        Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-//                        intent.putExtra(Common.KEY_TIME_SLOT, i);  // put index of time slot slected
-//                        intent.putExtra(Common.KEY_STEP, 3);
-//                        localBroadcastManager.sendBroadcast(intent);
-
                         //==================================================
                         //Event Bus
                         EventBus.getDefault().postSticky(new EnableNextButton(3,i));
 
                         //=================================================
-
 
                     }
                 });

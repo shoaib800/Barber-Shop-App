@@ -29,13 +29,11 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
     Context context;
     List<Barber> barberList;
     List<CardView> cardViewList;
-//    LocalBroadcastManager localBroadcastManager;
 
     public MyBarberAdapter(Context context, List<Barber> barberList) {
         this.context = context;
         this.barberList = barberList;
         cardViewList = new ArrayList<>();
-//        localBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
 
     @NonNull
@@ -49,7 +47,7 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.txt_barber_name.setText(barberList.get(i).getName());
-        if(barberList.get(i).getRatingTimes() != 0) //NULL Is not working (by Junaid)
+        if(barberList.get(i).getRatingTimes() != 0)
             myViewHolder.ratingBar.setRating((float)barberList.get(i).getRating()/barberList.get(i).getRatingTimes());
         else
             myViewHolder.ratingBar.setRating(0);
@@ -72,12 +70,6 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
                         context.getResources()
                                 .getColor(android.R.color.holo_orange_light)
                 );
-
-                //Send local broadcast to enable button next
-//                Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-//                intent.putExtra(Common.KEY_BARBER_SELECTED, barberList.get(pos));
-//                intent.putExtra(Common.KEY_STEP, 2);
-//                localBroadcastManager.sendBroadcast(intent);
 
                 //==================================================
                 //Event Bus
